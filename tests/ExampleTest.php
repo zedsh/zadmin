@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace Zedsh\ZAdmin\Tests;
 
 class ExampleTest extends TestCase
 {

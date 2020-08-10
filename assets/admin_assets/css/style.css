@@ -1,0 +1,15 @@
+
+
+.nav-link-group {
+    display: block;
+    padding: .5rem 1rem;
+}
+
+ .nav-link {
+    display: inline;
+    padding: 0;
+}
+
+ .add-link {
+     margin-left: 10px;
+ }
