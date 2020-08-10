@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zedsh\\ZAdmin\\": "src"
+            "zedsh\\zadmin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zedsh\\ZAdmin\\Tests\\": "tests"
+            "zedsh\\zadmin\\Tests\\": "tests"
         }
     },
     "scripts": {
