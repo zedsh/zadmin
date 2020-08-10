@@ -39,7 +39,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Zedsh\\ZAdmin\\ZAdminServiceProvider"
+                "zadminServiceProvider"
             ]
         }
     },

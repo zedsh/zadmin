@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Filters;
+namespace zedsh\zadmin\Filters;
 
 
 class FulltextFilter extends BaseFilter

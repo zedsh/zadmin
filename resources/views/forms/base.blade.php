@@ -1,6 +1,6 @@
     <?php
     /**
-     * @var \Zedsh\ZAdmin\Forms\BaseForm $form
+     * @var \zedsh\zadmin\Forms\BaseForm $form
      */
     ?>
 

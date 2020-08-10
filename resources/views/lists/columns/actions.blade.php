@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Lists\Columns\ActionsColumn $column
+ * @var \zedsh\zadmin\Lists\Columns\ActionsColumn $column
  */
 ?>
 @if($column->getEditOn())

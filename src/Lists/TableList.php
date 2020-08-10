@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Lists;
+namespace zedsh\zadmin\Lists;
 
 
-use Zedsh\ZAdmin\Filters\BaseFilter;
+use zedsh\zadmin\Filters\BaseFilter;
 
 class TableList extends BaseList
 {
-    protected $template = 'ZAdmin::lists.table';
+    protected $template = 'zadmin::lists.table';
     protected $itemsOnPage = 20;
     protected $paginate = false;
     protected $add = false;

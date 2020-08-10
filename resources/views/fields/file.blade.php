@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Fields\FileField $field
+ * @var \zedsh\zadmin\Fields\FileField $field
  */
 $detail = $field->getDetailValue();
 ?>

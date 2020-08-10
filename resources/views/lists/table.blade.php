@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Lists\TableList $table
+ * @var \zedsh\zadmin\Lists\TableList $table
  */
 ?>
 

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 class BooleanField extends BaseField
 {
-    protected $template = 'ZAdmin::fields.boolean';
+    protected $template = 'zadmin::fields.boolean';
 }

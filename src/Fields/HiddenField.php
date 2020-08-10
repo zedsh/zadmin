@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 class HiddenField extends BaseField

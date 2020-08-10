@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Lists\Columns;
+namespace zedsh\zadmin\Lists\Columns;
 
 
 abstract class BaseColumn

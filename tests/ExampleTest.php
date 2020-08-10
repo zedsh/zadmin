@@ -1,6 +1,6 @@
 <?php
 
-namespace Zedsh\ZAdmin\Tests;
+namespace zedsh\zadmin\Tests;
 
 class ExampleTest extends TestCase
 {

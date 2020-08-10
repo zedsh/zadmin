@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Lists\Columns;
+namespace zedsh\zadmin\Lists\Columns;
 
 
 class ActionsColumn extends BaseColumn
 {
-    protected $template = 'ZAdmin::lists.columns.actions';
+    protected $template = 'zadmin::lists.columns.actions';
     protected $editRoute;
     protected $deleteRoute;
     protected $routeParams = [];

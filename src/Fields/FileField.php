@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
-use Zedsh\ZAdmin\Base\File;
+use zedsh\zadmin\Base\File;
 
 class FileField extends BaseField
 {
     protected $multiple = false;
-    protected $template = 'ZAdmin::fields.file';
+    protected $template = 'zadmin::fields.file';
     protected $removeRoute;
 
 

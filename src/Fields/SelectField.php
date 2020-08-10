@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class SelectField extends BaseField
 {
-    protected $template = 'ZAdmin::fields.select';
+    protected $template = 'zadmin::fields.select';
     protected $collection;
     protected $id = 'id';
     protected $showField = 'name';

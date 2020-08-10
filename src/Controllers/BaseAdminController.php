@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Controllers;
+namespace zedsh\zadmin\Controllers;
 
-use Zedsh\ZAdmin\Templates\BaseTemplate;
+use zedsh\zadmin\Templates\BaseTemplate;
 use Illuminate\Routing\Controller as BaseController;
 
 

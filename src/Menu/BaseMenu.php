@@ -1,17 +1,17 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Menu;
+namespace zedsh\zadmin\Menu;
 
 
 /**
  * Class BaseMenu
- * @package Zedsh\ZAdmin\Menu
+ * @package zedsh\zadmin\Menu
  * @property BaseMenuItem $items
  */
 class BaseMenu
 {
-    protected $template = 'ZAdmin::menu.menu';
+    protected $template = 'zadmin::menu.menu';
     protected $items = [];
 
     public function __construct($items = [])

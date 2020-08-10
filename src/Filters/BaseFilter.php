@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Filters;
+namespace zedsh\zadmin\Filters;
 
 
 use Illuminate\Database\Eloquent\Builder;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Request;
 class BaseFilter
 {
     const FILTER_VAR = 'filter';
-    protected $template = 'ZAdmin::filters.base';
+    protected $template = 'zadmin::filters.base';
     protected $title;
     protected $field;
 

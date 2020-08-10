@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Lists;
+namespace zedsh\zadmin\Lists;
 
 
 class BaseList

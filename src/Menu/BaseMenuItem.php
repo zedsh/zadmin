@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Menu;
+namespace zedsh\zadmin\Menu;
 
 
 use Illuminate\Support\Str;
 
 class BaseMenuItem
 {
-    protected $template = 'ZAdmin::menu.menuItem';
+    protected $template = 'zadmin::menu.menuItem';
     protected $title;
     protected $link;
     protected $route;

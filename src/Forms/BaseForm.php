@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Forms;
+namespace zedsh\zadmin\Forms;
 
-use Zedsh\ZAdmin\Fields\BaseField;
+use zedsh\zadmin\Fields\BaseField;
 
 /**
  * Class BaseForm
- * @package Zedsh\ZAdmin\Forms
+ * @package zedsh\zadmin\Forms
  * @property BaseField[] $fields
  */
 class BaseForm
@@ -17,7 +17,7 @@ class BaseForm
     protected $title;
     protected $action = '';
     protected $back = '';
-    protected $template = 'ZAdmin::forms.base';
+    protected $template = 'zadmin::forms.base';
     protected $fields = [];
     protected $encType = 'multipart/form-data';
     protected $method = 'POST';

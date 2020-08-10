@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Base;
+namespace zedsh\zadmin\Base;
 
 
 use Illuminate\Support\Facades\Storage;

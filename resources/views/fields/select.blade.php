@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Fields\SelectField $field
+ * @var \zedsh\zadmin\Fields\SelectField $field
  */
 $collection = $field->getCollection();
 ?>

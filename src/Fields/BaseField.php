@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 use Illuminate\Support\Facades\Request;

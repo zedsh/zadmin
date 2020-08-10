@@ -1,6 +1,6 @@
 <?php
 
-namespace Zedsh\ZAdmin\Commands;
+namespace zedsh\zadmin\Commands;
 
 use Illuminate\Console\Command;
 

@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Templates;
+namespace zedsh\zadmin\Templates;
 
 
-use Zedsh\ZAdmin\Forms\BaseForm;
-use Zedsh\ZAdmin\Menu\BaseMenu;
+use zedsh\zadmin\Forms\BaseForm;
+use zedsh\zadmin\Menu\BaseMenu;
 
 class BaseTemplate
 {
-    protected $template = 'ZAdmin::layouts.admin';
+    protected $template = 'zadmin::layouts.admin';
     protected $content;
     protected $menu;
 

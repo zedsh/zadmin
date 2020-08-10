@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 class TinyMceAreaField extends BaseField
 {
-    protected $template = 'ZAdmin::fields.tinyMceArea';
+    protected $template = 'zadmin::fields.tinyMceArea';
 
 }

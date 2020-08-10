@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Filters\BaseFilter $filter
+ * @var \zedsh\zadmin\Filters\BaseFilter $filter
  */
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Menu\BaseMenu $menu
+ * @var \zedsh\zadmin\Menu\BaseMenu $menu
  */
 $items = $menu->getItems();
 ?>

@@ -1,9 +1,9 @@
 <?php
 
-namespace Zedsh\ZAdmin\Tests;
+namespace zedsh\zadmin\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Zedsh\ZAdmin\ZAdminServiceProvider;
+use zedsh\zadmin\zadminServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -17,7 +17,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            ZAdminServiceProvider::class,
+            zadminServiceProvider::class,
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Menu\BaseMenuItem $item
+ * @var \zedsh\zadmin\Menu\BaseMenuItem $item
  */
 ?>
 <div class="nav-link-group">

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 class TextAreaField extends BaseField
 {
     protected $maxLength = null;
-    protected $template = 'ZAdmin::fields.textArea';
+    protected $template = 'zadmin::fields.textArea';
 
     public function getMaxLength()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Fields\TextAreaField $field
+ * @var \zedsh\zadmin\Fields\TextAreaField $field
  */
 
 ?>

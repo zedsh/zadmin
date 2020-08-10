@@ -1,29 +1,26 @@
 <?php
 
-namespace Zedsh\ZAdmin;
+namespace zedsh\zadmin;
 
 use Illuminate\Support\ServiceProvider;
-use Zedsh\ZAdmin\Commands\ZAdminCommand;
+use zedsh\zadmin\Commands\ZAdminCommand;
 
-class ZAdminServiceProvider extends ServiceProvider
+class zadminServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views/vendor/ZAdmin'),
+                __DIR__.'/../resources/views' => base_path('resources/views/vendor/zadmin'),
             ], 'views');
 
             $this->publishes([
                 __DIR__.'/assets/admin_assets' => public_path('admin_assets'),
             ], 'public');
 
-            $this->commands([
-                ZAdminCommand::class,
-            ]);
         }
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'ZAdmin');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'zadmin');
     }
 
     public function register()

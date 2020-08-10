@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Zedsh\ZAdmin\Fields\BooleanField $field
+ * @var \zedsh\zadmin\Fields\BooleanField $field
  */
 ?>
 <div class="form-group">

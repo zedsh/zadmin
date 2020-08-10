@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Zedsh\ZAdmin\Fields;
+namespace zedsh\zadmin\Fields;
 
 
 use Carbon\Carbon;
 
 class DateField extends BaseField
 {
-    protected $template = 'ZAdmin::fields.date';
+    protected $template = 'zadmin::fields.date';
     protected $dateFormat = "d.m.Y";
 
 
