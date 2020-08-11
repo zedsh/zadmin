@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 class TextAreaField extends BaseField
 {
     protected $maxLength = null;
@@ -17,7 +16,7 @@ class TextAreaField extends BaseField
     public function setMaxLength($maxLength)
     {
         $this->maxLength = $maxLength;
+
         return $this;
     }
-
 }

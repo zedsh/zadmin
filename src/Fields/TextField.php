@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 class TextField extends BaseField
 {
     protected $template = 'zadmin::fields.text';
@@ -12,6 +11,7 @@ class TextField extends BaseField
     public function setSlugFrom($name)
     {
         $this->slugFrom = $name;
+
         return $this;
     }
 
@@ -19,7 +19,4 @@ class TextField extends BaseField
     {
         return $this->slugFrom;
     }
-
-
-
 }

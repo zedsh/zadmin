@@ -31,6 +31,7 @@ class BaseForm
     public function setFields($fields)
     {
         $this->fields = $fields;
+
         return $this;
     }
 
@@ -38,6 +39,7 @@ class BaseForm
     public function setAction($link)
     {
         $this->action = $link;
+
         return $this;
     }
 
@@ -68,9 +70,10 @@ class BaseForm
 
     public function getBack()
     {
-        if(empty($this->back)) {
+        if (empty($this->back)) {
             return url()->previous();
         }
+
         return $this->back;
     }
 
@@ -82,6 +85,7 @@ class BaseForm
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -93,6 +97,7 @@ class BaseForm
     public function setModel($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
@@ -101,11 +106,10 @@ class BaseForm
     {
         $content = '';
 
-        foreach($this->fields as $field) {
+        foreach ($this->fields as $field) {
             $content .= $field->setModel($this->model)->render();
         }
 
         return view($this->template, ['content' => $content, 'form' => $this]);
     }
-
 }

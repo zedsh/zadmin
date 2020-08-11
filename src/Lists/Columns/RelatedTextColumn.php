@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists\Columns;
 
-
 class RelatedTextColumn extends BaseColumn
 {
     protected $relation;
@@ -11,6 +10,7 @@ class RelatedTextColumn extends BaseColumn
     public function setRelation($relation)
     {
         $this->relation = $relation;
+
         return $this;
     }
 
@@ -18,5 +18,4 @@ class RelatedTextColumn extends BaseColumn
     {
         return $this->model->{$this->relation}->{$this->name};
     }
-
 }

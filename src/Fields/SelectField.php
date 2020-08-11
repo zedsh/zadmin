@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -20,36 +19,42 @@ class SelectField extends BaseField
     public function setRelatedKey($key)
     {
         $this->relatedKey = $key;
+
         return $this;
     }
 
     public function setMultiple($value = true)
     {
         $this->multiple = $value;
+
         return $this;
     }
 
     public function setNullable($value = true)
     {
         $this->nullable = $value;
+
         return $this;
     }
 
     public function setCollection($collection)
     {
         $this->collection = $collection;
+
         return $this;
     }
 
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     public function setShowField($fieldName)
     {
         $this->showField = $fieldName;
+
         return $this;
     }
 
@@ -101,7 +106,7 @@ class SelectField extends BaseField
                 return ($value->pluck($this->getRelatedKey())->contains($id));
             }
 
-            if(is_array($value)) {
+            if (is_array($value)) {
                 return (in_array($id, $value));
             }
 
@@ -115,5 +120,4 @@ class SelectField extends BaseField
             }
         }
     }
-
 }

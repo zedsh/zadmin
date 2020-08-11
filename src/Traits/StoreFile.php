@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Traits;
 
-
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -16,7 +15,7 @@ trait StoreFile
 
     protected function getSavePath()
     {
-        if (!empty($this->storageFilePath)) {
+        if (! empty($this->storageFilePath)) {
             return $this->storageFilePath;
         }
 
@@ -39,7 +38,7 @@ trait StoreFile
 
     public function deleteFile($field, $id)
     {
-        if(! $this->isFillableFileField($field)) {
+        if (! $this->isFillableFileField($field)) {
             return false;
         }
 
@@ -48,6 +47,7 @@ trait StoreFile
         foreach ($content as $i => $file) {
             if ($file['id'] === $id) {
                 $remove = $i;
+
                 break;
             }
         }
@@ -58,7 +58,6 @@ trait StoreFile
             $this->$field = $content;
             $this->save();
         }
-
     }
 
     public function isFillableFileField($field)
@@ -83,7 +82,7 @@ trait StoreFile
                 $fill = [];
                 $original = $this->$name;
 
-                if (!empty($original)) {
+                if (! empty($original)) {
                     $fill = $original;
                 }
 
@@ -91,21 +90,20 @@ trait StoreFile
                     if ($item instanceof UploadedFile) {
                         $fileName = $item->getClientOriginalName();
                         $filePath = $item->store($this->getSavePath(), $this->getStorage());
-                        $fill[] =$this->getFileArray($fileName, $filePath);
+                        $fill[] = $this->getFileArray($fileName, $filePath);
                     }
                 }
 
-                if (!empty($fill)) {
+                if (! empty($fill)) {
                     $this->$name = $fill;
                 }
             }
         }
 
-        foreach($this->fileFields as $field) {
-            if($this->$field === null) {
+        foreach ($this->fileFields as $field) {
+            if ($this->$field === null) {
                 $this->$field = [];
             }
         }
     }
-
 }

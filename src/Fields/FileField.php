@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 use zedsh\zadmin\Base\File;
 
 class FileField extends BaseField
@@ -16,19 +15,21 @@ class FileField extends BaseField
     public function setRemoveRoute($route)
     {
         $this->removeRoute = $route;
+
         return $this;
     }
 
     public function setMultiple($value = true)
     {
         $this->multiple = $value;
+
         return $this;
     }
 
     public function getFormName()
     {
         $name = $this->getName();
-        if($this->multiple) {
+        if ($this->multiple) {
             $name = $name . '[]';
         }
 
@@ -62,6 +63,7 @@ class FileField extends BaseField
         foreach ($value as $item) {
             $ret[] = new File($item['id'], $item['path'], $item['name']);
         }
+
         return $ret;
     }
 }

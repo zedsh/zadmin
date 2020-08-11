@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists;
 
-
 use zedsh\zadmin\Filters\BaseFilter;
 
 class TableList extends BaseList
@@ -20,12 +19,14 @@ class TableList extends BaseList
     public function setColumns($columns)
     {
         $this->columns = $columns;
+
         return $this;
     }
 
     public function setFilters($filters)
     {
         $this->filters = $filters;
+
         return $this;
     }
 
@@ -47,12 +48,14 @@ class TableList extends BaseList
     public function setItemsOnPage($itemsOnPage)
     {
         $this->itemsOnPage = $itemsOnPage;
+
         return $this;
     }
 
     public function enablePaginate($state = true)
     {
         $this->paginate = $state;
+
         return $this;
     }
 
@@ -64,6 +67,7 @@ class TableList extends BaseList
     public function enableAdd($state = true)
     {
         $this->add = $state;
+
         return $this;
     }
 
@@ -75,6 +79,7 @@ class TableList extends BaseList
     public function setAddPath($link)
     {
         $this->addPath = $link;
+
         return $this;
     }
 
@@ -91,6 +96,7 @@ class TableList extends BaseList
     public function setQuery($query)
     {
         $this->query = $query;
+
         return $this;
     }
 
@@ -114,6 +120,4 @@ class TableList extends BaseList
     {
         return view($this->template, ['table' => $this])->render();
     }
-
-
 }

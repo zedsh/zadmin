@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Traits;
 
-
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -52,5 +51,4 @@ trait ResizeTrait
         $config['resize']($image);
         $image->save(Storage::disk('public')->path($this->getResizeName($alias, $path)));
     }
-
 }

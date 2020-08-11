@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Menu;
 
-
 /**
  * Class BaseMenu
  * @package zedsh\zadmin\Menu
@@ -16,12 +15,13 @@ class BaseMenu
 
     public function __construct($items = [])
     {
-       $this->items = $items;
+        $this->items = $items;
     }
 
     public function setItems($items)
     {
         $this->items = $items;
+
         return $this;
     }
 
@@ -34,5 +34,4 @@ class BaseMenu
     {
         return view($this->template, ['menu' => $this])->render();
     }
-
 }

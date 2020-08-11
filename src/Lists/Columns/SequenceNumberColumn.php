@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists\Columns;
 
-
 class SequenceNumberColumn extends BaseColumn
 {
     public $sequenceNumber = 0;
@@ -11,7 +10,7 @@ class SequenceNumberColumn extends BaseColumn
     public function render()
     {
         $this->sequenceNumber++;
+
         return $this->sequenceNumber;
     }
-
 }

@@ -3,8 +3,6 @@
 
 namespace zedsh\zadmin\Templates;
 
-
-use zedsh\zadmin\Forms\BaseForm;
 use zedsh\zadmin\Menu\BaseMenu;
 
 class BaseTemplate
@@ -16,12 +14,14 @@ class BaseTemplate
     public function setTemplate($path)
     {
         $this->template = $path;
+
         return $this;
     }
 
     public function setMenu(BaseMenu $menu)
     {
         $this->menu = $menu;
+
         return $this;
     }
 
@@ -33,6 +33,7 @@ class BaseTemplate
     public function setContent($content)
     {
         $this->content = $content;
+
         return $this;
     }
 

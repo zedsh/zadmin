@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 use Illuminate\Support\Facades\Request;
 
 class BaseField
@@ -24,18 +23,21 @@ class BaseField
     public function setModel($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
 
     public function getValue()
     {
         $oldValue = Request::old($this->name);
+
         return ($oldValue !== null ? $oldValue : ($this->value ?? $this->model->{$this->name}));
     }
 
@@ -51,7 +53,6 @@ class BaseField
 
     public function render()
     {
-       return view($this->template, ['field' => $this])->render();
+        return view($this->template, ['field' => $this])->render();
     }
-
 }

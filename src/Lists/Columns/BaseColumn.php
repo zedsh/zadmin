@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists\Columns;
 
-
 abstract class BaseColumn
 {
     protected $name;
@@ -25,6 +24,7 @@ abstract class BaseColumn
     public function setWidth($value)
     {
         $this->width = $value;
+
         return $this;
     }
 
@@ -37,6 +37,7 @@ abstract class BaseColumn
     public function setModel($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
@@ -44,6 +45,4 @@ abstract class BaseColumn
     {
         return $this->model->{$this->name};
     }
-
-
 }

@@ -3,9 +3,8 @@
 
 namespace zedsh\zadmin\Controllers;
 
-use zedsh\zadmin\Templates\BaseTemplate;
 use Illuminate\Routing\Controller as BaseController;
-
+use zedsh\zadmin\Templates\BaseTemplate;
 
 class BaseAdminController extends BaseController
 {
@@ -15,5 +14,4 @@ class BaseAdminController extends BaseController
     {
         return (new BaseTemplate());
     }
-
 }

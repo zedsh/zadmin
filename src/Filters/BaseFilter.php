@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Filters;
 
-
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 
@@ -39,7 +38,7 @@ class BaseFilter
     {
         $fullFieldName = static::FILTER_VAR . ".$this->field";
 
-        if(! Request::has($fullFieldName)) {
+        if (! Request::has($fullFieldName)) {
             return null;
         }
 
@@ -49,8 +48,8 @@ class BaseFilter
     public function execute(Builder $query)
     {
         $value = $this->getFilterValue();
-        if($value !== null) {
-           $this->filter($query, $value);
+        if ($value !== null) {
+            $this->filter($query, $value);
         }
     }
 
@@ -63,5 +62,4 @@ class BaseFilter
     {
         $query->where($this->field, 'like', $value);
     }
-
 }

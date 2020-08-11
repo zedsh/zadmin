@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 class HiddenField extends BaseField
 {
     protected $value;
@@ -11,6 +10,7 @@ class HiddenField extends BaseField
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
 
@@ -23,8 +23,7 @@ class HiddenField extends BaseField
     {
         $name = $this->getName();
         $value = $this->getValue();
+
         return "<input type='hidden' name='$name' value='$value'>";
     }
-
-
 }

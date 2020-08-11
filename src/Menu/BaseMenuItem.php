@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Menu;
 
-
 use Illuminate\Support\Str;
 
 class BaseMenuItem
@@ -29,11 +28,11 @@ class BaseMenuItem
 
     public function getLink()
     {
-        if(!empty($this->link)) {
+        if (! empty($this->link)) {
             return $this->link;
         }
 
-        if(!empty($this->route)) {
+        if (! empty($this->route)) {
             return route($this->route);
         }
 
@@ -42,7 +41,7 @@ class BaseMenuItem
 
     public function getAddLink()
     {
-        if(!empty($this->addRoute)) {
+        if (! empty($this->addRoute)) {
             return route($this->addRoute);
         }
 
@@ -52,30 +51,35 @@ class BaseMenuItem
     public function setActiveWith($name)
     {
         $this->activeWith = $name;
+
         return $this;
     }
 
     public function setInactiveWith($name)
     {
         $this->inactiveWith = $name;
+
         return $this;
     }
 
     public function setRoute($route)
     {
         $this->route = $route;
+
         return $this;
     }
 
     public function setAddRoute($route)
     {
         $this->addRoute = $route;
+
         return $this;
     }
 
     public function setLink($link)
     {
         $this->link = $link;
+
         return $this;
     }
 
@@ -88,8 +92,8 @@ class BaseMenuItem
     {
         $route = request()->route()->getName();
         $active = Str::startsWith($route, $this->activeWith);
-        if(!empty($this->inactiveWith)) {
-            if(Str::startsWith($route,$this->inactiveWith)){
+        if (! empty($this->inactiveWith)) {
+            if (Str::startsWith($route, $this->inactiveWith)) {
                 $active = false;
             }
         }
@@ -99,7 +103,6 @@ class BaseMenuItem
 
     public function render()
     {
-        return view($this->template,['item' => $this])->render();
+        return view($this->template, ['item' => $this])->render();
     }
-
 }

@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Base;
 
-
 use Illuminate\Support\Facades\Storage;
 
 class File
@@ -46,5 +45,4 @@ class File
 
         return in_array($ext, $imageExtensions);
     }
-
 }

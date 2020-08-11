@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists\Columns;
 
-
 class CustomColumn extends BaseColumn
 {
     protected $renderFunction;
@@ -17,7 +16,7 @@ class CustomColumn extends BaseColumn
     public function render()
     {
         $function = $this->renderFunction;
+
         return $function($this->model);
     }
-
 }

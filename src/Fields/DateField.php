@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Fields;
 
-
 use Carbon\Carbon;
 
 class DateField extends BaseField
@@ -25,11 +24,10 @@ class DateField extends BaseField
     public function getValue()
     {
         $date = $this->model->{$this->getName()};
-        if(empty($date)) {
+        if (empty($date)) {
             $date = new Carbon();
         }
+
         return $date->format($this->getDateFormat());
     }
-
-
 }

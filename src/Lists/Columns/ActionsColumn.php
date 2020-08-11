@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists\Columns;
 
-
 class ActionsColumn extends BaseColumn
 {
     protected $template = 'zadmin::lists.columns.actions';
@@ -22,18 +21,21 @@ class ActionsColumn extends BaseColumn
     public function setEditRoute($route)
     {
         $this->editRoute = $route;
+
         return $this;
     }
 
     public function setDeleteRoute($route)
     {
         $this->deleteRoute = $route;
+
         return $this;
     }
 
     public function setEditOn($state = true)
     {
         $this->editOn = $state;
+
         return $this;
     }
 
@@ -50,12 +52,14 @@ class ActionsColumn extends BaseColumn
     public function setDeleteOn($state = true)
     {
         $this->deleteOn = true;
+
         return $this;
     }
 
     public function setRouteParams($params)
     {
         $this->routeParams = $params;
+
         return $this;
     }
 
@@ -63,15 +67,16 @@ class ActionsColumn extends BaseColumn
     {
         $params = [];
 
-        foreach($this->routeParams as $key => $param){
+        foreach ($this->routeParams as $key => $param) {
             $key = (is_string($key) ? $key : $param);
 
-            if(is_callable($param)) {
+            if (is_callable($param)) {
                 $params[$key] = $param($this->model);
+
                 continue;
             }
 
-            if(!empty($this->model->{$param})) {
+            if (! empty($this->model->{$param})) {
                 $params[$key] = $this->model->{$param};
             }
         }
@@ -81,18 +86,16 @@ class ActionsColumn extends BaseColumn
 
     public function getEditUrl()
     {
-        return route($this->editRoute,$this->getRouteParamsValues());
+        return route($this->editRoute, $this->getRouteParamsValues());
     }
 
     public function getDeleteUrl()
     {
-        return route($this->deleteRoute,$this->getRouteParamsValues());
+        return route($this->deleteRoute, $this->getRouteParamsValues());
     }
 
     public function render()
     {
-        return view($this->template,['column' => $this])->render();
+        return view($this->template, ['column' => $this])->render();
     }
-
-
 }

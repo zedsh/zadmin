@@ -3,7 +3,6 @@
 namespace zedsh\zadmin;
 
 use Illuminate\Support\ServiceProvider;
-use zedsh\zadmin\Commands\ZAdminCommand;
 
 class zadminServiceProvider extends ServiceProvider
 {
@@ -17,7 +16,6 @@ class zadminServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/assets/admin_assets' => public_path('admin_assets'),
             ], 'public');
-
         }
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'zadmin');

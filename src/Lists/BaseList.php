@@ -3,7 +3,6 @@
 
 namespace zedsh\zadmin\Lists;
 
-
 class BaseList
 {
     protected $name;
@@ -17,6 +16,7 @@ class BaseList
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -29,5 +29,4 @@ class BaseList
     {
         return '';
     }
-
 }
