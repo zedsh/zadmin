@@ -11,11 +11,12 @@ trait StoreFile
 {
     protected $storageFilePath = '';
     protected $storage = 'public';
+
 //    protected $fileFields = []; - in ext
 
     protected function getSavePath()
     {
-        if (! empty($this->storageFilePath)) {
+        if (!empty($this->storageFilePath)) {
             return $this->storageFilePath;
         }
 
@@ -38,7 +39,7 @@ trait StoreFile
 
     public function deleteFile($field, $id)
     {
-        if (! $this->isFillableFileField($field)) {
+        if (!$this->isFillableFileField($field)) {
             return false;
         }
 
@@ -82,7 +83,7 @@ trait StoreFile
                 $fill = [];
                 $original = $this->$name;
 
-                if (! empty($original)) {
+                if (!empty($original)) {
                     $fill = $original;
                 }
 
@@ -94,8 +95,50 @@ trait StoreFile
                     }
                 }
 
-                if (! empty($fill)) {
+                if (!empty($fill)) {
                     $this->$name = $fill;
+                }
+            }
+        }
+
+        foreach ($this->fileFields as $field) {
+            if ($this->$field === null) {
+                $this->$field = [];
+            }
+        }
+    }
+
+    /**
+     * @param array|string $fields
+     * array: fieldName => filePath
+     * or fieldName => [fieldPath1, fieldPath2] ....
+     */
+    public function addLocalFilesFromPath($fields)
+    {
+        foreach ($fields as $name => $field) {
+            if (empty($field) || !$this->isFillableFileField($name)) {
+                continue;
+            }
+
+            if (is_array($field)) {
+                foreach ($field as $item) {
+                    if (file_exists($item)) {
+                        $pathInfo = pathinfo($item);
+                        $fileName = $pathInfo['basename'];
+                        $filePath = Storage::disk($this->getStorage())->putFile($this->getSavePath(), $item);
+                        $fill[] = $this->getFileArray($fileName, $filePath);
+                    }
+                }
+
+                if (!empty($fill)) {
+                    $this->$name = $fill;
+                }
+            } else {
+                if (file_exists($field)) {
+                    $pathInfo = pathinfo($field);
+                    $fileName = $pathInfo['basename'];
+                    $filePath = Storage::disk($this->getStorage())->putFile($this->getSavePath(), $field);
+                    $this->$name = [$this->getFileArray($fileName, $filePath)];
                 }
             }
         }
