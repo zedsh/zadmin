@@ -16,7 +16,7 @@ trait StoreFile
 
     protected function getSavePath()
     {
-        if (!empty($this->storageFilePath)) {
+        if (! empty($this->storageFilePath)) {
             return $this->storageFilePath;
         }
 
@@ -39,7 +39,7 @@ trait StoreFile
 
     public function deleteFile($field, $id)
     {
-        if (!$this->isFillableFileField($field)) {
+        if (! $this->isFillableFileField($field)) {
             return false;
         }
 
@@ -83,7 +83,7 @@ trait StoreFile
                 $fill = [];
                 $original = $this->$name;
 
-                if (!empty($original)) {
+                if (! empty($original)) {
                     $fill = $original;
                 }
 
@@ -95,7 +95,7 @@ trait StoreFile
                     }
                 }
 
-                if (!empty($fill)) {
+                if (! empty($fill)) {
                     $this->$name = $fill;
                 }
             }
@@ -116,7 +116,7 @@ trait StoreFile
     public function addLocalFilesFromPath($fields)
     {
         foreach ($fields as $name => $field) {
-            if (empty($field) || !$this->isFillableFileField($name)) {
+            if (empty($field) || ! $this->isFillableFileField($name)) {
                 continue;
             }
 
@@ -130,7 +130,7 @@ trait StoreFile
                     }
                 }
 
-                if (!empty($fill)) {
+                if (! empty($fill)) {
                     $this->$name = $fill;
                 }
             } else {
