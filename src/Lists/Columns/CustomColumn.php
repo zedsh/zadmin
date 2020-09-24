@@ -11,6 +11,7 @@ class CustomColumn extends BaseColumn
     public function setRender($function)
     {
         $this->renderFunction = $function;
+        return $this;
     }
 
     public function render()
