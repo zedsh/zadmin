@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Admin\Templates;
 
-
-use App\Admin\Menu\BaseMenu;
-use App\Admin\Menu\BaseMenuItem;
+use zedsh\zadmin\Menu\BaseMenu;
+use zedsh\zadmin\Menu\BaseMenuItem;
+use zedsh\zadmin\Templates\BaseTemplate;
 
 class ProjectTemplate extends BaseTemplate
 {
