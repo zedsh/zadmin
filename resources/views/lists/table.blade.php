@@ -37,5 +37,5 @@
 </table>
 
 @if($table->getPaginate())
-    {{ $table->items()->appends(request()->query())->links() }}
+    {{ $table->getRenderedPaginationContent() }}
 @endif

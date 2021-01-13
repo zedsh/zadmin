@@ -14,7 +14,7 @@ class zadminServiceProvider extends ServiceProvider
             ], 'views');
 
             $this->publishes([
-                __DIR__.'/assets/admin_assets' => public_path('admin_assets'),
+                __DIR__.'/../assets/admin_assets' => public_path('admin_assets'),
             ], 'public');
         }
 
