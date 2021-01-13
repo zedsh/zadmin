@@ -15,6 +15,7 @@ class TableList extends BaseList
     protected $columns = [];
     protected $filters = [];
     protected $query;
+    protected $items;
 
     public function setColumns($columns)
     {
@@ -100,20 +101,33 @@ class TableList extends BaseList
         return $this;
     }
 
-    public function items()
+    public function items($forceQuery = false)
     {
-        foreach ($this->filters as $filter) {
-            /**
-             * @var BaseFilter $filter
-             */
-            $filter->execute($this->query);
+        if(empty($this->items) || $forceQuery) {
+            foreach ($this->filters as $filter) {
+                /**
+                 * @var BaseFilter $filter
+                 */
+                $filter->execute($this->query);
+            }
+
+            if ($this->paginate) {
+                $this->items = $this->query->paginate($this->itemsOnPage);
+            } else {
+                $this->items = $this->query->get();
+            }
         }
 
-        if ($this->paginate) {
-            return $this->query->paginate($this->itemsOnPage);
-        } else {
-            return $this->query->get();
+        return $this->items;
+    }
+
+    public function getRenderedPaginationContent()
+    {
+        if(!$this->getPaginate()) {
+            return '';
         }
+
+        return $this->items()->appends(request()->query())->links('pagination::bootstrap-4');
     }
 
     public function render()
