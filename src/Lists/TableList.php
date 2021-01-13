@@ -103,7 +103,7 @@ class TableList extends BaseList
 
     public function items($forceQuery = false)
     {
-        if(empty($this->items) || $forceQuery) {
+        if (empty($this->items) || $forceQuery) {
             foreach ($this->filters as $filter) {
                 /**
                  * @var BaseFilter $filter
@@ -123,7 +123,7 @@ class TableList extends BaseList
 
     public function getRenderedPaginationContent()
     {
-        if(!$this->getPaginate()) {
+        if (! $this->getPaginate()) {
             return '';
         }
 
