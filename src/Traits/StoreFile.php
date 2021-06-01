@@ -36,6 +36,20 @@ trait StoreFile
             'name' => $fileName,
         ];
     }
+    
+    public function replicateFiles()
+    {
+        foreach ($this->fileFields as $field) {
+            if ($this->$field !== null) {
+                $replace = [];
+                foreach ($this->$field as $item) {
+                    $newPath = Storage::disk($this->getStorage())->putFile($this->getSavePath(),Storage::disk($this->getStorage())->path($item['path']));
+                    $replace[] = $this->getFileArray($item['name'], $newPath);
+                }
+                $this->$field = $replace;
+            }
+        }
+    }
 
     public function deleteFile($field, $id)
     {
