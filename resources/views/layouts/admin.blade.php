@@ -68,7 +68,15 @@
 <script src="/admin_assets/js/slug.js"></script>
 <script src="/admin_assets/js/flatpickr.js"></script>
 <script src="/admin_assets/js/flatpickr_ru.js"></script>
-<script>tinymce.init({selector: '.mce'});</script>
+<script>
+
+    tinymce.init({
+        selector: '.mce', plugins: ['lists','link','code','table'],
+    toolbar: 'numlist bullist link code',
+    forced_root_block : "",
+    height : "480"
+    });
+</script>
 <script>
     $(document).ready(
         function(){
