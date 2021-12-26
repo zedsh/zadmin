@@ -23,9 +23,9 @@ $detail = $field->getDetailValue();
                         <a href="{{$field->getRemovePath($file)}}" class="btn btn-danger">Удалить</a>
                     @endif
                     <label for="{{$field->getAttributeFormName($file->getId(),'title')}}">Title</label>
-                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}">
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}" value="{{$file->getTitle()}}">
                     <label for="{{$field->getAttributeFormName($file->getId(),'alt')}}">Alt</label>
-                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}">
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}" value="{{$file->getAlt()}}">
                 </div>
             </div>
         @endforeach
