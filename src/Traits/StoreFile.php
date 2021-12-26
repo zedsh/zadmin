@@ -108,6 +108,8 @@ trait StoreFile
                    }
                }
 
+               unset($file_item);
+
                $this->{$field_name} = $field_content;
             }
 
