@@ -36,6 +36,12 @@ class FileField extends BaseField
         return $name;
     }
 
+    public function getAttributeFormName($id, $attribute)
+    {
+        $name = $this->getName();
+        return $name . '_attributes[' . $id . '][' . $attribute . ']';
+    }
+
     public function getRemoveRoute()
     {
         return $this->removeRoute;
@@ -61,7 +67,7 @@ class FileField extends BaseField
 
         $ret = [];
         foreach ($value as $item) {
-            $ret[] = new File($item['id'], $item['path'], $item['name']);
+            $ret[] = new File($item['id'], $item['path'], $item['name'], $item['title'] ?? '', $item['alt'] ?? '');
         }
 
         return $ret;

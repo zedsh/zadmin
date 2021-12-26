@@ -36,7 +36,7 @@ trait StoreFile
             'name' => $fileName,
         ];
     }
-    
+
     public function replicateFiles()
     {
         foreach ($this->fileFields as $field) {
@@ -80,6 +80,16 @@ trait StoreFile
         return in_array($field, $this->fileFields);
     }
 
+    protected function getFileAttributesField($field)
+    {
+        return str_replace('_attributes', '',$field);
+    }
+
+    public function isFillableFileAttributesField($field)
+    {
+        return in_array($this->getFileAttributesField($field), $this->fileFields);
+    }
+
     public function addFiles($fields)
     {
         foreach ($fields as $name => $field) {
@@ -87,9 +97,24 @@ trait StoreFile
                 continue;
             }
 
+            if(is_array($field) && $this->isFillableFileAttributesField($name)) {
+               $field_name = $this->getFileAttributesField($name);
+               $field_content = $this->{$field_name};
+               foreach ($field_content as &$file_item) {
+                   foreach ($field as $field_id => $field_attributes) {
+                       if($file_item['id'] === $field_id) {
+                          $file_item = $field_attributes + $file_item;
+                       }
+                   }
+               }
+
+               $this->{$field_name} = $field_content;
+            }
+
             if ($field instanceof UploadedFile && $this->isFillableFileField($name)) {
                 $fileName = $field->getClientOriginalName();
                 $filePath = $field->store($this->getSavePath(), $this->getStorage());
+                $attributes = $fields[$name . '_attributes'] ?? [];
                 $this->$name = [$this->getFileArray($fileName, $filePath)];
             }
 
