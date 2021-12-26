@@ -22,6 +22,10 @@ $detail = $field->getDetailValue();
                     @if(!empty($field->getRemoveRoute()))
                         <a href="{{$field->getRemovePath($file)}}" class="btn btn-danger">Удалить</a>
                     @endif
+                    <label for="{{$field->getAttributeFormName($file->getId(),'title')}}">Title</label>
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}">
+                    <label for="{{$field->getAttributeFormName($file->getId(),'alt')}}">Alt</label>
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}">
                 </div>
             </div>
         @endforeach
