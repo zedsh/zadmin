@@ -20,12 +20,14 @@ $detail = $field->getDetailValue();
                 <div class="card-body">
                     <p class="card-text">{{$file->originalName()}}</p>
                     @if(!empty($field->getRemoveRoute()))
-                        <a href="{{$field->getRemovePath($file)}}" class="btn btn-danger">Удалить</a>
+                        <p><a href="{{$field->getRemovePath($file)}}" class="btn btn-danger">Удалить</a></p>
                     @endif
+                    <p>
                     <label for="{{$field->getAttributeFormName($file->getId(),'title')}}">Title</label>
-                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}" value="{{$file->getTitle()}}">
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}">
                     <label for="{{$field->getAttributeFormName($file->getId(),'alt')}}">Alt</label>
-                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}" value="{{$file->getAlt()}}">
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}">
+                    </p>
                 </div>
             </div>
         @endforeach
