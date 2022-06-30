@@ -11,6 +11,7 @@ class ActionsColumn extends BaseColumn
     protected $routeParams = [];
     protected $editOn = false;
     protected $deleteOn = false;
+    protected $deleteWithForm = false;
     protected $width = 100;
 
     public function __construct($name = 'actionsColumn', $title = 'Действия')
@@ -92,6 +93,17 @@ class ActionsColumn extends BaseColumn
     public function getDeleteUrl()
     {
         return route($this->deleteRoute, $this->getRouteParamsValues());
+    }
+
+    public function setDeleteWithForm($state = true)
+    {
+        $this->deleteWithForm = $state;
+        return $this;
+    }
+
+    public function getDeleteWithForm()
+    {
+        return $this->deleteWithForm;
     }
 
     public function render()

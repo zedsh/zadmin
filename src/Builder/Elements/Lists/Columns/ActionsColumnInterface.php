@@ -14,4 +14,6 @@ interface ActionsColumnInterface extends BaseColumnInterface
     public function setDeleteOn($state = true): ActionsColumnInterface;
 
     public function setRouteParams($params): ActionsColumnInterface;
+
+    public function setDeleteWithForm($state = true): ActionsColumnInterface;
 }
