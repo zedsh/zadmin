@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ArtistController;
 
 Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function() {
 
+    // good classic old route definition
     Route::prefix('/artist')->name('artist.')->group(function() {
         Route::get('/list', [ArtistController::class, 'list'])->name('list');
         Route::get('/add', [ArtistController::class, 'add'])->name('add');
@@ -12,5 +13,8 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function() 
         Route::get('/delete/{id}', [ArtistController::class, 'delete'])->name('delete');
         Route::post('/save', [ArtistController::class, 'save'])->name('save');
     });
+
+    //brilliant new luxury resource route
+    Route::resource('user','UserResourceController');
 
 });
