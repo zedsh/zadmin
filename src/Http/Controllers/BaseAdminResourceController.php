@@ -77,6 +77,7 @@ class BaseAdminResourceController extends Controller
             ->setEditRoute($this->resourceName . '.edit')
             ->setDeleteRoute($this->resourceName . '.destroy')
             ->setDeleteOn()
+            ->setDeleteWithForm()
             ->setEditOn()
             ->setRouteParams([
                 $this->resourceName => function ($model) {
