@@ -57,6 +57,21 @@ class BaseAdminResourceController extends Controller
 //        $this->formBuilder->addFieldPassword('password_confirmation', 'Подтвердите пароль');
     }
 
+    protected function actions()
+    {
+        $this->formBuilder->addColumnActions()
+            ->setEditRoute($this->resourceName . '.edit')
+            ->setDeleteRoute($this->resourceName . '.destroy')
+            ->setDeleteOn()
+            ->setDeleteWithForm()
+            ->setEditOn()
+            ->setRouteParams([
+                $this->resourceName => function ($model) {
+                   return $model->id;
+                }
+            ]);
+    }
+
     protected function beforeSave($request, $model)
     {
 //        if ($request->has('password')) {
@@ -73,17 +88,7 @@ class BaseAdminResourceController extends Controller
 
     public function index()
     {
-        $this->formBuilder->addColumnActions()
-            ->setEditRoute($this->resourceName . '.edit')
-            ->setDeleteRoute($this->resourceName . '.destroy')
-            ->setDeleteOn()
-            ->setDeleteWithForm()
-            ->setEditOn()
-            ->setRouteParams([
-                $this->resourceName => function ($model) {
-                    return $model->id;
-                }
-            ]);
+        $this->actions();
 
         $this->list();
 
