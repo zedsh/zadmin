@@ -7,17 +7,12 @@ use App\Http\Requests\Admin\UserRequest;
 use App\User;
 use zedsh\zadmin\Builder\Builders\AdminBuilder;
 use zedsh\zadmin\Builder\Builders\BuilderInterface;
-use zedsh\zadmin\Fields\HiddenField;
-use zedsh\zadmin\Forms\BaseForm;
-use zedsh\zadmin\Lists\Columns\ActionsColumn;
-use zedsh\zadmin\Lists\TableList;
-use zedsh\zadmin\Templates\BaseTemplate;
 use function app;
 use function back;
 use function response;
 use function route;
 
-class BaseAdminResourceController extends Controller
+class BaseBuilderAdminResourceController extends Controller
 {
     protected $modelClass = null;
     protected $request = null;
@@ -27,9 +22,22 @@ class BaseAdminResourceController extends Controller
     protected $itemsOnPage = 10;
     /** @var AdminBuilder $formBuilder */
     protected $formBuilder;
-    protected $listClass = TableList::class;
-    protected $formClass = BaseForm::class;
 
+    public function __construct(BuilderInterface $formBuilder)
+    {
+        $this->formBuilder = $formBuilder;
+        $this->setMenu();
+        $this->formBuilder->setMenu()
+            ->setItems($this->formBuilder->getMenuItems());
+
+    }
+
+    protected function setMenu()
+    {
+//        $this->formBuilder->addMenuItem('title', 'route')
+//            ->setActiveWith('route');
+
+    }
 
     protected function list()
     {
@@ -51,7 +59,7 @@ class BaseAdminResourceController extends Controller
 
     protected function actions()
     {
-        return (new ActionsColumn())
+        $this->formBuilder->addColumnActions()
             ->setEditRoute($this->resourceName . '.edit')
             ->setDeleteRoute($this->resourceName . '.destroy')
             ->setDeleteOn()
@@ -59,7 +67,7 @@ class BaseAdminResourceController extends Controller
             ->setEditOn()
             ->setRouteParams([
                 $this->resourceName => function ($model) {
-                    return $model->id;
+                   return $model->id;
                 }
             ]);
     }
@@ -71,11 +79,6 @@ class BaseAdminResourceController extends Controller
 //        }
     }
 
-    protected function render($renderable)
-    {
-        return BaseTemplate::renderView($renderable);
-    }
-
     protected function getListQuery()
     {
         $modelClass = $this->modelClass;
@@ -85,22 +88,20 @@ class BaseAdminResourceController extends Controller
 
     public function index()
     {
-        $actionColumn = $this->actions();
+        $this->actions();
 
-        $otherColumns = $this->list();
+        $this->list();
 
-        $list = new $this->listClass($this->resourceName . 'List');
-
-        $list
+        $this->formBuilder->setList($this->resourceName . 'List')
             ->setTitle($this->indexTitle)
-            ->setColumns([$actionColumn, ...$otherColumns])
+            ->setColumns($this->formBuilder->getColumns())
             ->enableAdd()
             ->setAddPath(route($this->resourceName . '.create'))
             ->setQuery($this->getListQuery())
             ->enablePaginate()
             ->setItemsOnPage($this->itemsOnPage);
 
-        return $this->render($list);
+        return $this->formBuilder->render();
     }
 
 
@@ -108,19 +109,18 @@ class BaseAdminResourceController extends Controller
     {
         $modelClass = $this->modelClass;
         $model = new $modelClass;
+        $this->addEdit(true);
 
-        $form = new $this->formClass($this->resourceName . 'Form');
-
-        $form
+        $this->formBuilder->setForm('main')
             ->setTitle($this->editTitle)
             ->setAction(route($this->resourceName . '.store'))
             ->setEncType('multipart/form-data')
             ->setMethod('POST')
             ->setBack(route($this->resourceName . '.index'))
             ->setModel($model)
-            ->setFields($this->addEdit($model));
+            ->setFields($this->formBuilder->getFields());
 
-        return $this->render($form);
+        return $this->formBuilder->render();
     }
 
 
@@ -151,23 +151,21 @@ class BaseAdminResourceController extends Controller
     {
         $modelClass = $this->modelClass;
         $model = $modelClass::query()->findOrFail($id);
+        $this->formBuilder->addFieldHidden('id', '')->setValue($id);
+        $this->formBuilder->addFieldHidden('_method', '')->setValue('PUT');
 
-        $form = new $this->formClass($this->resourceName . 'Form');
+        $this->addEdit($model);
 
-        $form
+        $this->formBuilder->setForm('main')
             ->setTitle($this->editTitle)
-            ->setAction(route($this->resourceName . '.store'))
+            ->setAction(route($this->resourceName . '.update', [$this->resourceName => $id]))
             ->setEncType('multipart/form-data')
             ->setMethod('POST')
             ->setBack(route($this->resourceName . '.index'))
             ->setModel($model)
-            ->setFields(
-                array_merge($this->addEdit($model), [
-                    (new HiddenField('id', ''))->setValue($id),
-                    (new HiddenField('_method', ''))->setValue('PUT'),
-                ]));
+            ->setFields($this->formBuilder->getFields());
 
-        return $this->render($form);
+        return $this->formBuilder->render();
     }
 
 
@@ -196,6 +194,4 @@ class BaseAdminResourceController extends Controller
         $modelClass::query()->findOrFail($id)->delete();
         return back();
     }
-
-
 }

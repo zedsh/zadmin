@@ -46,6 +46,8 @@ class BaseForm
     public function setMethod($method)
     {
         $this->method = $method;
+        
+        return $this;
     }
 
     public function getMethod()
@@ -56,6 +58,8 @@ class BaseForm
     public function setEncType($encType)
     {
         $this->encType = $encType;
+        
+        return $this;
     }
 
     public function getEncType()
@@ -66,6 +70,8 @@ class BaseForm
     public function setBack($back)
     {
         $this->back = $back;
+        
+        return $this;
     }
 
     public function getBack()

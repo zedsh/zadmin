@@ -37,11 +37,11 @@ use zedsh\zadmin\Builder\Workers\PageInterface;
  * @method Lists\TableListInterface setList(string $name)
  *
  * @method Columns\ActionsColumnInterface addColumnActions(string $name = 'actionsColumn', string $title = 'Действия')
- * @method Columns\ActionsColumnInterface addColumnCustom(string $name, string $title)
- * @method Columns\ActionsColumnInterface addColumnRaw(string $name, string $title)
- * @method Columns\ActionsColumnInterface addColumnRelatedText(string $name, string $title)
- * @method Columns\ActionsColumnInterface addColumnSequenceNumber(string $name, string $title)
- * @method Columns\ActionsColumnInterface addColumnText(string $name, string $title)
+ * @method Columns\CustomColumnInterface addColumnCustom(string $name, string $title)
+ * @method Columns\RawColumnInterface addColumnRaw(string $name, string $title)
+ * @method Columns\RelatedTextColumnInterface addColumnRelatedText(string $name, string $title)
+ * @method Columns\SequenceNumberColumnInterface addColumnSequenceNumber(string $name, string $title)
+ * @method Columns\TextColumnInterface addColumnText(string $name, string $title)
  *
  * @method Menu\BaseMenuInterface setMenu(array $items = [])
  * @method Menu\BaseMenuItemInterface addMenuItem(string $title, string $route = '')
@@ -114,8 +114,9 @@ class AdminBuilder implements BuilderInterface
         if (empty(trim($arguments[0]))) {
             throw new ArgumentNameEmptyException('Аргумент name не должен быть пустым');
         }
+        $nameParameter = str_replace('addField', '', $name);
 
-        $this->form = new DescriptionForm(['name' => $arguments[0]]);
+        $this->form = new DescriptionForm($nameParameter ?: 'Base',['name' => $arguments[0]]);
         return $this->form;
     }
 
@@ -160,7 +161,9 @@ class AdminBuilder implements BuilderInterface
             throw new ArgumentNameEmptyException('Аргумент name не должен быть пустым');
         }
 
-        $this->list = new DescriptionList(['name' => $arguments[0]]);
+        $nameParameter = str_replace('setList', '', $name);
+
+        $this->list = new DescriptionList($nameParameter ?: 'Table', ['name' => $arguments[0]]);
         return $this->list;
     }
 

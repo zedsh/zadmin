@@ -57,7 +57,7 @@ abstract class BaseDescription
             if (isset($this->otherData[$name])) { $this->otherData[$name] = []; }
             $this->otherData[$name][] = $arguments[0] ?? $this::ARGUMENT_DEFAULT;
         } else {
-            $this->otherData[$name] = $arguments[0] ?? $this::ARGUMENT_DEFAULT;
+            $this->otherData[$name] = $arguments ?? $this::ARGUMENT_DEFAULT;
         }
 
         return $this;

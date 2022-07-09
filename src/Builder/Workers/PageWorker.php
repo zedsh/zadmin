@@ -44,13 +44,13 @@ class PageWorker implements PageInterface
     protected $fieldClasses = [];
 
     /** @var string $formClass */
-    protected $formClass = '';
+    protected $formClasses = [];
 
     /** @var string[] $columnClasses */
     protected $columnClasses = [];
 
     /** @var string $listClass */
-    protected $listClass = '';
+    protected $listClasses = [];
 
     /** @var string $menu */
     protected $menuClass = '';
@@ -71,7 +71,7 @@ class PageWorker implements PageInterface
             ->setFieldClass('TextArea', SelectField::class)
             ->setFieldClass('Text', TextField::class)
             ->setFieldClass('TinyMceArea', TinyMceAreaField::class)
-            ->setFormClass(BaseForm::class)
+            ->setFormClass('Base', BaseForm::class)
 
             ->setColumnClass('Actions', ActionsColumn::class)
             ->setColumnClass('Custom', CustomColumn::class)
@@ -79,7 +79,7 @@ class PageWorker implements PageInterface
             ->setColumnClass('RelatedText', RelatedTextColumn::class)
             ->setColumnClass('SequenceNumber', SequenceNumberColumn::class)
             ->setColumnClass('Text', TextColumn::class)
-            ->setListClass(TableList::class)
+            ->setListClass('Table',TableList::class)
 
             ->setMenuClass(BaseMenu::class)
             ->setMenuItemClass(BaseMenuItem::class)
@@ -106,9 +106,9 @@ class PageWorker implements PageInterface
         return $this;
     }
 
-    public function setListClass(string $class): PageWorker
+    public function setListClass(string $classType, string $class): PageWorker
     {
-        $this->listClass = $class;
+        $this->listClasses[$classType] = $class;
         return $this;
     }
 
@@ -133,6 +133,16 @@ class PageWorker implements PageInterface
     public function getFieldClassNameByType(string $fieldType) : string
     {
         return $this->fieldClasses[$fieldType];
+    }
+
+    public function getFormClassNameByType(string $formType) : string
+    {
+        return $this->formClasses[$formType];
+    }
+
+    public function getListClassNameByType(string $listType) : string
+    {
+        return $this->listClasses[$listType];
     }
 
     public function getColumnClassNameByType(string $fieldType) : string
@@ -183,12 +193,12 @@ class PageWorker implements PageInterface
         foreach ($description->getOtherData() as $functionName => $value) {
             if (!method_exists($object, $functionName)) { continue; }
             if ($this->valueInstanceofDescription($value)) {
-                $object->{$functionName}($this->prepareDescriptionValue($value));
+                $object->{$functionName}(...$this->prepareDescriptionValue($value));
             } else {
                 if ($value === DescriptionColumn::ARGUMENT_DEFAULT) {
                     $object->{$functionName}();
                 } else {
-                    $object->{$functionName}($value);
+                    $object->{$functionName}(...$value);
                 }
             }
         }
@@ -228,11 +238,11 @@ class PageWorker implements PageInterface
     {
         switch (get_class($description)) {
             case DescriptionForm::class:
-                return $this->formClass;
+                return $this->getFormClassNameByType($description->getType());
             case DescriptionField::class:
                 return $this->getFieldClassNameByType($description->getType());
             case DescriptionList::class:
-                return $this->listClass;
+                return $this->getListClassNameByType($description->getType());
             case DescriptionColumn::class:
                 return $this->getColumnClassNameByType($description->getType());
             case DescriptionMenu::class:

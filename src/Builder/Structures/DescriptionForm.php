@@ -2,6 +2,6 @@
 
 namespace zedsh\zadmin\Builder\Structures;
 
-class DescriptionForm extends BaseDescription
+class DescriptionForm extends BaseDescriptionType
 {
 }
