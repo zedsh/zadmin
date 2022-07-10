@@ -25,8 +25,6 @@ class BaseAdminResourceController extends Controller
     protected $indexTitle = 'title';
     protected $editTitle = 'title';
     protected $itemsOnPage = 10;
-    /** @var AdminBuilder $formBuilder */
-    protected $formBuilder;
     protected $listClass = TableList::class;
     protected $formClass = BaseForm::class;
 
@@ -156,7 +154,7 @@ class BaseAdminResourceController extends Controller
 
         $form
             ->setTitle($this->editTitle)
-            ->setAction(route($this->resourceName . '.store'))
+            ->setAction(route($this->resourceName . '.update',[$this->resourceName => $id]))
             ->setEncType('multipart/form-data')
             ->setMethod('POST')
             ->setBack(route($this->resourceName . '.index'))
@@ -175,7 +173,7 @@ class BaseAdminResourceController extends Controller
     {
         $request = app($this->request);
         $modelClass = $this->modelClass;
-        $model = $modelClass::query()->findOrFail($request->input('id'));
+        $model = $modelClass::query()->findOrFail($id);
         $model->fill($request->validated());
         $this->beforeSave($request, $model);
 
