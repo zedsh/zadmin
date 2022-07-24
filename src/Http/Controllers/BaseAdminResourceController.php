@@ -28,6 +28,15 @@ class BaseAdminResourceController extends Controller
     protected $listClass = TableList::class;
     protected $formClass = BaseForm::class;
 
+    protected function getRoutes($model)
+    {
+        return [
+            'destroy' => route($this->resourceName . '.index'),
+            'update' => route($this->resourceName . '.index'),
+            'store' => route($this->resourceName . '.index'),
+        ];
+    }
+
 
     protected function list()
     {
@@ -136,7 +145,7 @@ class BaseAdminResourceController extends Controller
         if (method_exists($model, 'addRelations')) {
             $model->addRelations($request->validated());
         }
-        return response()->redirectToRoute($this->resourceName . '.index');
+        return response()->redirectTo($this->getRoutes($model)['store']);
     }
 
     public function show($id)
@@ -184,15 +193,17 @@ class BaseAdminResourceController extends Controller
         if (method_exists($model, 'addRelations')) {
             $model->addRelations($request->validated());
         }
-        return response()->redirectToRoute($this->resourceName . '.index');
+        return response()->redirectTo($this->getRoutes($model)['update']);
     }
 
 
     public function destroy($id)
     {
         $modelClass = $this->modelClass;
-        $modelClass::query()->findOrFail($id)->delete();
-        return back();
+        $model = $modelClass::query()->findOrFail($id);
+        $model->delete();
+        $backRoute = $this->getRoutes($model)['update'] ?? null;
+        return ($backRoute ? response()->redirectTo($backRoute) : back());
     }
 
 
