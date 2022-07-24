@@ -34,6 +34,8 @@ class BaseAdminResourceController extends Controller
             'destroy' => route($this->resourceName . '.index'),
             'update' => route($this->resourceName . '.index'),
             'store' => route($this->resourceName . '.index'),
+            'editBack' => route($this->resourceName . '.index'),
+            'createBack' => route($this->resourceName . '.index')
         ];
     }
 
@@ -123,7 +125,7 @@ class BaseAdminResourceController extends Controller
             ->setAction(route($this->resourceName . '.store'))
             ->setEncType('multipart/form-data')
             ->setMethod('POST')
-            ->setBack(route($this->resourceName . '.index'))
+            ->setBack($this->getRoutes($model)['createBack'])
             ->setModel($model)
             ->setFields($this->addEdit($model));
 
@@ -166,7 +168,7 @@ class BaseAdminResourceController extends Controller
             ->setAction(route($this->resourceName . '.update',[$this->resourceName => $id]))
             ->setEncType('multipart/form-data')
             ->setMethod('POST')
-            ->setBack(route($this->resourceName . '.index'))
+            ->setBack($this->getRoutes($model)['editBack'])
             ->setModel($model)
             ->setFields(
                 array_merge($this->addEdit($model), [
