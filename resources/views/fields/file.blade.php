@@ -24,9 +24,9 @@ $detail = $field->getDetailValue();
                     @endif
                     <p>
                     <label for="{{$field->getAttributeFormName($file->getId(),'title')}}">Title</label>
-                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}">
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'title')}}" value="{{$file->getTitle()}}">
                     <label for="{{$field->getAttributeFormName($file->getId(),'alt')}}">Alt</label>
-                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}">
+                    <input class="form-control" name="{{$field->getAttributeFormName($file->getId(),'alt')}}" value="{{$file->getAlt()}}">
                     </p>
                 </div>
             </div>
