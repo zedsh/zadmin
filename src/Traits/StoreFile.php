@@ -80,14 +80,20 @@ trait StoreFile
         return in_array($field, $this->fileFields);
     }
 
+    protected function getFileAttributesFieldPostfix()
+    {
+        return '_attributes';
+    }
+
     protected function getFileAttributesField($field)
     {
-        return str_replace('_attributes', '',$field);
+        return str_replace($this->getFileAttributesFieldPostfix(), '', $field);
     }
 
     public function isFillableFileAttributesField($field)
     {
-        return in_array($this->getFileAttributesField($field), $this->fileFields);
+        return stripos($field, $this->getFileAttributesFieldPostfix()) !== false
+            && in_array($this->getFileAttributesField($field), $this->fileFields);
     }
 
     public function addFiles($fields)
