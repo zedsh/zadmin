@@ -43,25 +43,17 @@ class BaseAdminResourceController extends Controller
 
     protected function list()
     {
-//        $this->formBuilder->addColumnText('id', '#')
-//            ->setWidth(50);
-//        $this->formBuilder->addColumnText('name', 'Имя');
-//        $this->formBuilder->addColumnText('email', 'Email');
-
+        return [];
     }
 
     protected function filters()
     {
-
+        return [];
     }
 
     protected function addEdit($model)
     {
-        //$this->formBuilder->addFieldHidden('id', '')->setValue($id);
-//        $this->formBuilder->addFieldText('name', 'Имя');
-//        $this->formBuilder->addFieldText('email', 'Email');
-//        $this->formBuilder->addFieldPassword('password', 'Пароль');
-//        $this->formBuilder->addFieldPassword('password_confirmation', 'Подтвердите пароль');
+        return [];
     }
 
     protected function actions()
