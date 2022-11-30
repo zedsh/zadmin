@@ -23,8 +23,6 @@ class zadminServiceProvider extends ServiceProvider
         }
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'zadmin');
-        $this->app->bind(PageInterface::class, PageWorker::class);
-        $this->app->bind(BuilderInterface::class, AdminBuilder::class);
     }
 
     public function register()

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin\Templates\ProjectTemplate;
 use zedsh\zadmin\Http\Controllers\BaseAdminResourceController;
 
 class AdminResourceController extends BaseAdminResourceController
 {
-    protected function setMenu()
+    protected function render($renderable)
     {
-        $this->formBuilder->addMenuItem('Пользователи', 'user.index')
-            ->setActiveWith('user');
+        return ProjectTemplate::renderView($renderable);
     }
 }

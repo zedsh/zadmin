@@ -3,96 +3,65 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\UserRequest;
+use App\Models\Partner;
+use App\Models\Role;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use zedsh\zadmin\Fields\BooleanField;
+use zedsh\zadmin\Fields\PasswordField;
+use zedsh\zadmin\Fields\SelectField;
+use zedsh\zadmin\Fields\TextField;
+use zedsh\zadmin\Lists\Columns\TextColumn;
 
-class UserController extends AdminController
+class UserController extends AdminResourceController
 {
-    public function delete($id)
-    {
-        User::query()->findOrFail($id)->delete();
-        return response()->redirectToRoute('user.list');
-    }
+    protected $modelClass = User::class;
+    protected $request = UserRequest::class;
+    protected $resourceName = 'user';
+    protected $indexTitle = 'Список пользователей';
+    protected $editTitle = 'Добавить пользователя';
 
-    public function save(UserRequest $request)
+    protected function beforeSave($request, $model)
     {
-        if (!empty($request->input('id'))) {
-            $model = User::query()->findOrFail($request->input('id'));
-        } else {
-            $model = new User();
-        }
-
-        $model->fill($request->validated());
-        if($request->has('password')) {
+        if($request->has('password') && !empty($request->input('password'))) {
             $model->password = Hash::make($request->input('password'));
         }
-        $model->save();
-        return response()->redirectToRoute('user.list');
     }
 
-    public function edit($id)
+    protected function list()
     {
-        $model = User::query()->findOrFail($id);
-
-        $this->formBuilder->addFieldHidden('id', '')->setValue($id);
-        $this->formBuilder->addFieldText('name', 'Имя');
-        $this->formBuilder->addFieldText('email', 'Email');
-        $this->formBuilder->addFieldPassword('password', 'Пароль');
-        $this->formBuilder->addFieldPassword('password_confirmation', 'Подтвердите пароль');
-
-        $this->formBuilder->setForm('main')
-            ->setTitle('Пользователь')
-            ->setAction(route('user.save', ['id' => $id]))
-            ->setEncType('multipart/form-data')
-            ->setMethod('POST')
-            ->setBack(route('user.list'))
-            ->setModel($model)
-            ->setFields($this->formBuilder->getFields());
-
-        return $this->formBuilder->render();
+        return [
+            (new TextColumn('id','#'))->setWidth(50),
+            (new TextColumn('name','Имя')),
+            (new TextColumn('email','Email')),
+        ];
     }
 
-    public function add()
+    protected function addEdit($model)
     {
-        $model = new User();
-        $this->formBuilder->addFieldText('name', 'Имя');
-        $this->formBuilder->addFieldText('email', 'Email');
-        $this->formBuilder->addFieldPassword('password', 'Пароль');
-        $this->formBuilder->addFieldPassword('password_confirmation', 'Подтвердите пароль');
+        return [
+            (new TextField('login', 'Логин')),
+            (new TextField('name','Имя')),
+            (new TextField('surname','Фамилия')),
+            (new TextField('patronymic','Отчество')),
+            (new TextField('email', 'Email')),
+            (new TextField('phone', 'Телефон')),
+            (new TextField('company', 'Компания')),
+            (new TextField('inn', 'Инн')),
+            (new SelectField('role_id', 'Роль'))->setCollection(Role::all())->setShowField('name'),
+            (new SelectField('partner_id', 'Партнёр'))->setCollection(Partner::all())->setNullable()->setShowField('name'),
+            (new BooleanField('mailing','Участвует в рассылке')),
+            (new BooleanField('mail_validated','Email подтвержден')),
+            (new BooleanField('phone_validated','Телефон подтвержден')),
+            (new PasswordField('password', 'Пароль')),
+            (new PasswordField('password_confirmation', 'Подтвердите пароль')),
+            (new TextField('email_notification', 'Email для уведомлений')),
+            (new BooleanField('notification_basic','Уведомления: базовые')),
+            (new BooleanField('notification_rules_change','Уведомления: о изменении правил')),
+            (new BooleanField('notification_news','Уведомления: новости')),
 
-        $this->formBuilder->setForm('main')
-            ->setModel($model)
-            ->setTitle('Пользователь')
-            ->setBack(route('user.list'))
-            ->setAction(route('user.save'))
-            ->setFields($this->formBuilder->getFields());
-
-
-        return $this->formBuilder->render();
+        ];
     }
 
-    public function list()
-    {
-        $this->formBuilder->addColumnActions()
-            ->setEditRoute('user.edit')
-            ->setDeleteRoute('user.delete')
-            ->setDeleteOn()
-            ->setEditOn()
-            ->setRouteParams(['id']);
-        $this->formBuilder->addColumnText('id', '#')
-            ->setWidth(50);
-        $this->formBuilder->addColumnText('name', 'Имя');
-        $this->formBuilder->addColumnText('email', 'Email');
 
-        $this->formBuilder->setList('UserList')
-            ->setTitle('Список пользователей')
-            ->setColumns($this->formBuilder->getColumns())
-            ->enableAdd()
-            ->setAddPath(route('user.add'))
-            ->setQuery(User::query())
-            ->enablePaginate()
-            ->setItemsOnPage(10);
-
-        return $this->formBuilder->render();
-    }
 }

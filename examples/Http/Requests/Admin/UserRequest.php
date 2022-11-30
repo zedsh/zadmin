@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArtistRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,10 +15,10 @@ class ArtistRequest extends FormRequest
     {
         return [
             'name' => ['string', 'required'],
-            'description' => ['string', 'required'],
-            'slug' => ['string', 'required'],
-            'photo' => ['file'],
-            'additional_photos.*' => ['file']
+            'email' => ['string', 'required'],
+            'login' => ['string', 'required'],
+            'password' => ['string', 'confirmed', 'nullable'],
+            'notification_news' => ['boolean'],
         ];
     }
 }

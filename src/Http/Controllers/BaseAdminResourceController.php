@@ -9,6 +9,7 @@ use zedsh\zadmin\Builder\Builders\AdminBuilder;
 use zedsh\zadmin\Builder\Builders\BuilderInterface;
 use zedsh\zadmin\Fields\HiddenField;
 use zedsh\zadmin\Forms\BaseForm;
+use zedsh\zadmin\Lists\BaseList;
 use zedsh\zadmin\Lists\Columns\ActionsColumn;
 use zedsh\zadmin\Lists\TableList;
 use zedsh\zadmin\Templates\BaseTemplate;
@@ -46,6 +47,11 @@ class BaseAdminResourceController extends Controller
 //            ->setWidth(50);
 //        $this->formBuilder->addColumnText('name', 'Имя');
 //        $this->formBuilder->addColumnText('email', 'Email');
+
+    }
+
+    protected function filters()
+    {
 
     }
 
@@ -98,12 +104,19 @@ class BaseAdminResourceController extends Controller
 
         $otherColumns = $this->list();
 
+        $filters = $this->filters();
+
         $list = new $this->listClass($this->resourceName . 'List');
+
+        /**
+         * @var TableList $list
+         */
 
         $list
             ->setTitle($this->indexTitle)
             ->setColumns([$actionColumn, ...$otherColumns])
             ->enableAdd()
+            ->setFilters($filters)
             ->setAddPath(route($this->resourceName . '.create'))
             ->setQuery($this->getListQuery())
             ->enablePaginate()

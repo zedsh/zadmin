@@ -1,21 +1,21 @@
 {
     "name": "zedsh/zadmin",
-    "description": "",
+    "description": "Lite admin panel from laravel",
     "keywords": [
         "ZAdmin"
     ],
-    "homepage": "https://github.com/spatie/ZAdmin",
+    "homepage": "https://github.com/zedsh/zadmin",
     "license": "MIT",
     "authors": [
         {
             "name": "Zaboev Eduard",
             "email": "zedsh@icloud.com",
-            "homepage": "https://spatie.be",
+            "homepage": "https://zedsh.ru",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": ">=7.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16"
