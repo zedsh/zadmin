@@ -114,9 +114,9 @@ class SelectField extends BaseField
         } else {
             $value = $this->getValue();
             if ($value instanceof Model) {
-                return ($value->{$this->getRelatedKey()} === $id);
+                return ($value->{$this->getRelatedKey()} == $id);
             } else {
-                return ($value === $id);
+                return ($value == $id);
             }
         }
     }
