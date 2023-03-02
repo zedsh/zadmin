@@ -1,5 +1,6 @@
 {
     "name": "zedsh/zadmin",
+    "type": "library",
     "description": "Lite admin panel from laravel",
     "keywords": [
         "ZAdmin"

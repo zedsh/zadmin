@@ -23,6 +23,7 @@ class zadminServiceProvider extends ServiceProvider
         }
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'zadmin');
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
     }
 
     public function register()
