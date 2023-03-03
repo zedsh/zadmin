@@ -22,7 +22,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = new User();
-        $user->fill($request->only('name','email','password')->toArray());
+        $user->fill($request->only('name','email','password'));
         $user->password = Hash::make($user->password);
         $user->saveOrFail();
 
