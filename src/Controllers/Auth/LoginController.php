@@ -5,6 +5,7 @@ namespace zedsh\zadmin\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use zedsh\zadmin\Http\Requests\LoginRequest;
 
 
@@ -18,25 +19,17 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
-        $remember = null;
-        if(!empty($credentials['remember'])) {
-            $remember = true;
-            unset($credentials['remember']);
-        }
-
-        if (Auth::attempt($credentials)) {
-            $user = User::where('email','=',$credentials['email'])->firstOrFail();
-            Auth::login($user, $remember);
-            request()->session()->regenerate();
-
+        if (Auth::attempt($request->only('email','password'), !empty($request->only('remember')))) {
             return redirect()->route('admin');
         }
+
+        return redirect()->back()->withErrors([
+            'msg'=>'Такого пользователя не существует.'
+        ]);
     }
 
     public function logout() {
         Auth::logout();
-        request()->session()->regenerate();
 
         return redirect()->route('login');
     }

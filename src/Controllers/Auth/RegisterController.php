@@ -13,7 +13,7 @@ use zedsh\zadmin\Http\Requests\RegisterRequest;
 class RegisterController extends Controller
 {
 
-    public function showRegistrationForm(): Factory|View|Application
+    public function showRegistrationForm()
     {
         return view('zadmin::pages.registration.index');
     }
@@ -21,10 +21,9 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $newUser = $request->validated();
-        $newUser['password'] = Hash::make($newUser['password']);
         $user = new User();
-        $user->fill($newUser);
+        $user->fill($request->only('name','email','password')->toArray());
+        $user->password = Hash::make($user->password);
         $user->saveOrFail();
 
         return redirect(route('login'));

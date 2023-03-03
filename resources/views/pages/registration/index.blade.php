@@ -7,6 +7,15 @@
                 <div class="card">
                     <div class="card-header">Регистрация</div>
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <form method="POST" action="{{ route('registration') }}">
                             @csrf
@@ -32,14 +41,14 @@
                                 <label for="login" class="col-md-4 col-form-label text-md-right">Имя</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="text"
-                                           class="form-control @error('email') is-invalid @enderror" name="email"
-                                           value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="name" type="text"
+                                           class="form-control @error('name') is-invalid @enderror" name="name"
+                                           value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                             </div>
