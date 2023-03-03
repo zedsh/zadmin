@@ -34,7 +34,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'Email',
-            'password' => 'Заголовок',
+            'password' => 'Пароль',
             'remember' => 'Запомнить меня',
         ];
     }
