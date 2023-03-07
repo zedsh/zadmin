@@ -3,10 +3,12 @@
 namespace zedsh\zadmin;
 
 use Illuminate\Support\ServiceProvider;
+use MongoDB\Driver\Command;
 use zedsh\zadmin\Builder\Builders\AdminBuilder;
 use zedsh\zadmin\Builder\Builders\BuilderInterface;
 use zedsh\zadmin\Builder\Workers\PageInterface;
 use zedsh\zadmin\Builder\Workers\PageWorker;
+use zedsh\zadmin\Commands\ZAdminCommand;
 
 class zadminServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,10 @@ class zadminServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../assets/admin_assets' => public_path('admin_assets'),
             ], 'public');
+
+            $this->commands([
+                ZAdminCommand::class,
+            ]);
         }
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'zadmin');
@@ -28,5 +34,10 @@ class zadminServiceProvider extends ServiceProvider
 
     public function register()
     {
+    }
+
+    public function provides()
+    {
+        return [ZAdminCommand::class];
     }
 }

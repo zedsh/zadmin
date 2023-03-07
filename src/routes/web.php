@@ -8,7 +8,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('registration', [\zedsh\zadmin\Controllers\Auth\RegisterController::class,'register']);
     Route::post('logout', [\zedsh\zadmin\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-    Route::prefix('/admin')->middleware(['auth', 'http.cache.drop'])->group(function () {
+    Route::prefix('/admin')->middleware(['auth'])->group(function () {
         Route::get('/', function () {
             return redirect(route('user.index'));
         })->name('admin');
