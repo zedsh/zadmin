@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>ZAdmin</title>
 
     <!-- Bootstrap core CSS -->
@@ -37,8 +38,8 @@
         <li class="nav-item text-nowrap">
             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 <button type="submit" class="btn btn-outline-light">Выход</button>
-                                        @csrf
-                                    </form>
+                @csrf
+            </form>
         </li>
     </ul>
 </nav>
@@ -47,7 +48,7 @@
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-            {!! $menu !!}
+                {!! $menu !!}
             </div>
         </nav>
 
@@ -62,7 +63,49 @@
     </div>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="/admin_assets/js/jquery-3.6.3.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('body').on('click','.delete-tag',function (e){
+            e.preventDefault();
+            var data = new FormData();
+            var button = $(this);
+            let url = button.attr('data-url');
+            let news_id = button.attr('data-news_id');
+            let tag_id = button.attr('data-tag_id');
+
+            data.append('news_id', news_id);
+            data.append('tag_id', tag_id);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function () {
+                },
+                success: function (responseData) {
+                }
+            }).done(function (data) {
+                window.location.reload();
+            }).fail(function (data) {
+            });
+
+
+        })
+
+    });
+</script>
 <script src="/admin_assets/js/bootstrap.bundle.min.js"></script>
 <script src="/admin_assets/libs/tinymce/tinymce.min.js"></script>
 <script src="/admin_assets/js/slug.js"></script>
@@ -72,9 +115,9 @@
 
     tinymce.init({
         selector: '.mce', plugins: ['lists','link','code','table'],
-    toolbar: 'numlist bullist link code',
-    forced_root_block : "",
-    height : "480"
+        toolbar: 'numlist bullist link code',
+        forced_root_block : "",
+        height : "480"
     });
 </script>
 <script>

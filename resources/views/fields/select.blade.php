@@ -4,7 +4,8 @@
  */
 $collection = $field->getCollection();
 if(request()->route()->parameterNames()[0] === "admin_news") {
-    $tags_ids = \App\Models\NewsTag::where('news_id', '=', (int)request()->route()->parameter('admin_news'))->select(
+    $news_id = (int)request()->route()->parameter('admin_news');
+    $tags_ids = \App\Models\NewsTag::where('news_id', '=', $news_id)->select(
         'tag_id'
     )->get()->toArray();
     $tags_ids = \Illuminate\Support\Arr::flatten($tags_ids, 1);
@@ -17,7 +18,21 @@ if(request()->route()->parameterNames()[0] === "admin_news") {
         <div>Выбранные теги к новости: </div>
         @foreach($tags as $tag)
             <span style="margin-left: 10px;">
-                <span>{{ $tag->title }}</span>
+                <span
+                    style="border: 1px solid grey;padding: 5px; border-radius: 15px;"
+                >
+                    {{ $tag->title }}
+                </span>
+                <span
+                    style="margin-left: 5px; color: red; cursor: pointer;"
+                    class="delete-tag"
+                    id="delete-tag.{{$tag->id}}"
+                    data-news_id = "{{ $news_id }}"
+                    data-tag_id = "{{ $tag->id }}"
+                    data-url = "http://localhost/admin/delete-tag-relation"
+                >
+                    Удалить
+                </span>
             </span>
         @endforeach
     @endif
