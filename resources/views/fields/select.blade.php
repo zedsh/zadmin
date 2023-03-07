@@ -29,7 +29,7 @@ if(request()->route()->parameterNames()[0] === "admin_news") {
                     id="delete-tag.{{$tag->id}}"
                     data-news_id = "{{ $news_id }}"
                     data-tag_id = "{{ $tag->id }}"
-                    data-url = "http://localhost/admin/delete-tag-relation"
+                    data-url = "{{ route('delete-tag-relation') }}"
                 >
                     Удалить
                 </span>
