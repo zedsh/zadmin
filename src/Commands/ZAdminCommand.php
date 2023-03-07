@@ -23,7 +23,7 @@ class ZAdminCommand extends Command
 
     protected function installBaseProjectTemplate()
     {
-        (new Filesystem)->copyDirectory(__DIR__.'/../expand/ProjectTemplate', __DIR__.'/../../../../../app/');
+        (new Filesystem)->copyDirectory(__DIR__.'/assets/expand/ProjectTemplate', __DIR__.'/../../../../../app/');
     }
 
 }
