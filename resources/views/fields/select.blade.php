@@ -3,8 +3,8 @@
  * @var \zedsh\zadmin\Fields\SelectField $field
  */
 $collection = $field->getCollection();
-if(request()->route()->parameterNames()[0] === "admin_news") {
-    $news_id = (int)request()->route()->parameter('admin_news');
+if(request()->route()->parameterNames()[0] === "news") {
+    $news_id = (int)request()->route()->parameter('news');
     $tags_ids = \App\Models\NewsTag::where('news_id', '=', $news_id)->select(
         'tag_id'
     )->get()->toArray();
@@ -50,7 +50,7 @@ if(request()->route()->parameterNames()[0] === "admin_news") {
             @endif
         @endforeach
     </select>
-    {{--    <div class="valid-feedback">--}}
-    {{--        Looks good!--}}
-    {{--    </div>--}}
+    <div class="valid-feedback">
+        Looks good!
+    </div>
 </div>
