@@ -36,7 +36,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ZAdmin</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
                 <button type="submit" class="btn btn-outline-light">Выход</button>
                 @csrf
             </form>

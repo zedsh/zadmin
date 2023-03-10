@@ -47,14 +47,14 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item" style="margin-right: 10px;">
-                            <a class="nav-link" href="{{ route('login') }}">Войти</a>
+                            <a class="nav-link" href="{{ route('admin.login') }}">Войти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('registration') }}">Регистрация</a>
+                            <a class="nav-link" href="{{ route('admin.registration') }}">Регистрация</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('admin.register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
