@@ -13,6 +13,7 @@ use zedsh\zadmin\Lists\BaseList;
 use zedsh\zadmin\Lists\Columns\ActionsColumn;
 use zedsh\zadmin\Lists\TableList;
 use zedsh\zadmin\Templates\BaseTemplate;
+use Illuminate\Support\Facades\Hash;
 use function app;
 use function back;
 use function response;
@@ -25,6 +26,7 @@ class BaseAdminResourceController extends Controller
     protected $resourceName = 'resource_name';
     protected $indexTitle = 'title';
     protected $editTitle = 'title';
+    protected $createTitle = 'title';
     protected $itemsOnPage = 10;
     protected $listClass = TableList::class;
     protected $formClass = BaseForm::class;
@@ -73,9 +75,9 @@ class BaseAdminResourceController extends Controller
 
     protected function beforeSave($request, $model)
     {
-//        if ($request->has('password')) {
-//            $model->password = Hash::make($request->input('password'));
-//        }
+        if ($request->has('password')) {
+            $model->password = Hash::make($request->input('password'));
+        }
     }
 
     protected function render($renderable)
@@ -86,7 +88,7 @@ class BaseAdminResourceController extends Controller
     protected function getListQuery()
     {
         $modelClass = $this->modelClass;
-        return $modelClass::query();
+        return $modelClass::query()->orderBy('id','ASC');
     }
 
 
@@ -126,7 +128,7 @@ class BaseAdminResourceController extends Controller
         $form = new $this->formClass($this->resourceName . 'Form');
 
         $form
-            ->setTitle($this->editTitle)
+            ->setTitle($this->createTitle)
             ->setAction(route($this->resourceName . '.store'))
             ->setEncType('multipart/form-data')
             ->setMethod('POST')
