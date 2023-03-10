@@ -1,7 +1,7 @@
 <?php
 
 
-\zedsh\zadmin\Helpers\AdminAuth::routes(['auth'],'admin','admin');
+//\zedsh\zadmin\Helpers\AdminAuth::routes(['auth'],'admin','admin');
 
 
 
