@@ -5,9 +5,9 @@ namespace zedsh\zadmin\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class ZAdminCommand extends Command
+class ZAdminInstallProjectTemplate extends Command
 {
-    public $signature = 'zadmin:projecttemplate';
+    public $signature = 'zadmin:project-template';
 
     public $description = 'Command for copy ProjectTemplate file into your project';
 
@@ -23,7 +23,7 @@ class ZAdminCommand extends Command
 
     protected function installBaseProjectTemplate()
     {
-        (new Filesystem)->copyDirectory(__DIR__.'/assets/expand/ProjectTemplate', __DIR__.'/../../../../../app/');
+        (new Filesystem)->copyDirectory(__DIR__.'/assets/expand/ProjectTemplate', app_path());
     }
 
 }

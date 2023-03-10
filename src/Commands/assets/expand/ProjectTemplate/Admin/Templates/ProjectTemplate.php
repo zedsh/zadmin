@@ -12,7 +12,8 @@ class ProjectTemplate extends BaseTemplate
     {
         return new BaseMenu(
             [
-                (new BaseMenuItem('Артисты', 'artist.list'))->setActiveWith('artist')->setInactiveWith('artist.type'),
+                #Пример реализации:
+                #(new BaseMenuItem('Артисты', 'artist.list'))->setActiveWith('artist')->setInactiveWith('artist.type'),
             ]
         );
     }

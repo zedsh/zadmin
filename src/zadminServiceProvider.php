@@ -8,7 +8,9 @@ use zedsh\zadmin\Builder\Builders\AdminBuilder;
 use zedsh\zadmin\Builder\Builders\BuilderInterface;
 use zedsh\zadmin\Builder\Workers\PageInterface;
 use zedsh\zadmin\Builder\Workers\PageWorker;
-use zedsh\zadmin\Commands\ZAdminCommand;
+use zedsh\zadmin\Commands\ZAdminInstallAdminResourceController;
+use zedsh\zadmin\Commands\ZAdminInstallAssets;
+use zedsh\zadmin\Commands\ZAdminInstallProjectTemplate;
 
 class zadminServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,9 @@ class zadminServiceProvider extends ServiceProvider
             ], 'public');
 
             $this->commands([
-                ZAdminCommand::class,
+                ZAdminInstallProjectTemplate::class,
+                ZAdminInstallAdminResourceController::class,
+                ZAdminInstallAssets::class,
             ]);
         }
 
@@ -38,6 +42,10 @@ class zadminServiceProvider extends ServiceProvider
 
     public function provides()
     {
-        return [ZAdminCommand::class];
+        return [
+            ZAdminInstallProjectTemplate::class,
+            ZAdminInstallAdminResourceController::class,
+            ZAdminInstallAssets::class,
+            ];
     }
 }
