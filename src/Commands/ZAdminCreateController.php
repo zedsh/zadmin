@@ -58,6 +58,7 @@ class ZAdminCreateController extends Command
             $data = str_replace("(new TextColumn('id', '#'))->setWidth(50)", $list, $data);
             file_put_contents(app_path('Http/Controllers/Admin/'.$this->argument('modelName').'Controller.php'),$data);
             $this->createResourceRoute();
+            $this->createRequest();
         }
     }
 
@@ -95,6 +96,25 @@ class ZAdminCreateController extends Command
             $newRoute .
             substr($routesFile,(strpos($routesFile,"->name('admin');")+18)) ;
         file_put_contents(app_path() . '/../routes/web.php',$updatedRoutesFile);
+    }
+
+    protected function createRequest()
+    {
+        $data = file_get_contents(__DIR__ . '/assets/expand/createRequest/NewRequest.php');
+        $data = str_replace([
+            'NewRequest',
+        ],
+            [
+                $this->argument('modelName') . 'Request',
+            ], $data);
+        $fillableAttributes = $this->parseModel();
+        $rules = [];
+        foreach ($fillableAttributes as $attribute) {
+            $rules[] = "            '$attribute' => ['string'],\n";
+        }
+        $rules = "return [\n" . implode('',$rules) . "          ];";
+        $data = str_replace('return [];', $rules, $data);
+        file_put_contents(app_path('Http/Requests/Admin/'.$this->argument('modelName').'Request.php'),$data);
     }
 
 }
