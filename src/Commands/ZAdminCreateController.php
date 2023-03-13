@@ -4,14 +4,15 @@ namespace zedsh\zadmin\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-
-use function Sodium\add;
+use Illuminate\Support\Facades\Route;
 
 class ZAdminCreateController extends Command
 {
     public $signature = 'admin:create {modelName}';
 
     public $description = 'Command for copy AdminResourceController file into your project';
+
+    public static $app_routes = array();
 
 
     public function __construct() {
@@ -55,8 +56,8 @@ class ZAdminCreateController extends Command
                 }
             }
             $data = str_replace("(new TextColumn('id', '#'))->setWidth(50)", $list, $data);
-            dd($data);
             file_put_contents(app_path('Http/Controllers/Admin/'.$this->argument('modelName').'Controller.php'),$data);
+            $this->createResourceRoute();
         }
     }
 
@@ -83,7 +84,17 @@ class ZAdminCreateController extends Command
         $fillable = str_replace("'", "", $fillable);
         $fillable = str_replace(" ", "", $fillable);
         $fillable = explode(',', $fillable);
+
         return $fillable;
+    }
+
+    protected function createResourceRoute() {
+        $routesFile = file_get_contents(app_path() . '/../routes/web.php');
+        $newRoute = "       Route::resource('". strtolower($this->argument('modelName')) ."', ". $this->argument('modelName') . "Controller::class);\n";
+        $updatedRoutesFile = substr($routesFile, 0, (strpos($routesFile,"->name('admin');")+18)) .
+            $newRoute .
+            substr($routesFile,(strpos($routesFile,"->name('admin');")+18)) ;
+        file_put_contents(app_path() . '/../routes/web.php',$updatedRoutesFile);
     }
 
 }
