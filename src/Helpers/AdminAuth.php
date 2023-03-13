@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 class AdminAuth
 {
+    public static $app_routes = array();
+    public static $authRoutesIsPublished = false;
+
+
     public static function routes(array $options = [], string $prefix, string $name_prefix)
     {
         Route::prefix($prefix)->name($name_prefix . '.')->middleware(['web'])->group(function () use ($options) {
@@ -27,6 +31,21 @@ class AdminAuth
                     [\zedsh\zadmin\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
             }
         });
+    }
+
+    public static function checkExistAuthRoutesInApp()
+    {
+        foreach (Route::getRoutes() as $route) {
+            self::$app_routes[] = $route->uri;
+        }
+
+        if (in_array('admin/login', self::$app_routes) &&
+            in_array('admin/registration', self::$app_routes) &&
+            in_array('admin/logout', self::$app_routes)) {
+            self::$authRoutesIsPublished = true;
+        }
+
+        return self::$authRoutesIsPublished;
     }
 }
 
