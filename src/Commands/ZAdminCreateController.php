@@ -108,21 +108,27 @@ class ZAdminCreateController extends Command
 
     protected function createRequest()
     {
-        $data = file_get_contents(__DIR__ . '/assets/expand/createRequest/NewRequest.php');
-        $data = str_replace([
-            'NewRequest',
-        ],
-            [
-                $this->argument('modelName') . 'Request',
-            ], $data);
+        $pathFrom = __DIR__ . '/assets/expand/createRequest/NewRequest.php';
+        $pathTo = app_path('Http/Requests/Admin/' . $this->argument('modelName') . 'Request.php');
+
         $fillableAttributes = $this->parseModel();
         $rules = [];
         foreach ($fillableAttributes as $attribute) {
             $rules[] = "            '$attribute' => ['string'],\n";
         }
-        $rules = "return [\n" . implode('',$rules) . "          ];";
-        $data = str_replace('return [];', $rules, $data);
-        file_put_contents(app_path('Http/Requests/Admin/'.$this->argument('modelName').'Request.php'),$data);
+        $rules = "return [\n" . implode('', $rules) . "          ];";
+
+        $search = [
+            'NewRequest',
+            'return [];'
+        ];
+
+        $replace = [
+            $this->argument('modelName') . 'Request',
+            $rules
+        ];
+
+        $this->replaceInFile($search, $replace, $pathFrom, $pathTo);
     }
 
     protected function replaceInFile($search, $replace, $pathFrom, $pathTo)
