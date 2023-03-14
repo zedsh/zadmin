@@ -37,7 +37,7 @@ class ZAdminCreateController extends Command
 
         $fillableAddEdit = [];
         foreach ($fillable as $field) {
-            $fillableAddEdit[] = "new TextField('" . $field . "', '" . $field . "'),\n";
+            $fillableAddEdit[] = "\t\t\tnew TextField('" . $field . "', '" . $field . "'),\n";
         }
 
         $list = "            (new TextColumn('id', '#'))->setWidth(50)";
