@@ -31,7 +31,7 @@ class ZAdminCreateController extends Command
     protected function createController()
     {
         $pathFrom = __DIR__ . '/assets/expand/createController/NewController.php';
-        $pathTo = app_path('Http/Controllers/Admin/' . $this->argument('modelName') . 'Controller.php');
+        $pathTo = app_path('Http/Controllers/' . $this->argument('modelName') . 'Controller.php');
 
         $fillable = $this->parseModel();
 
@@ -40,11 +40,10 @@ class ZAdminCreateController extends Command
             $fillableAddEdit[] = "\t\t\tnew TextField('" . $field . "', '" . $field . "'),\n";
         }
 
-        $list = "            (new TextColumn('id', '#'))->setWidth(50)";
+        $list = "\t\t\t(new TextColumn('id', '#'))->setWidth(50),\n";
         foreach ($fillable as $field) {
             if ($field === 'name') {
-                $list = $list . "
-            (new TextColumn('name', 'name')),\n";
+                $list = $list . "\t\t\t(new TextColumn('name', 'name')),\n";
             }
         }
 
@@ -54,8 +53,8 @@ class ZAdminCreateController extends Command
             'protected $modelClass = null;',
             'use App\Http\Requests\Admin\TagStoreUpdateRequest;',
             'protected $request = null;',
-            "new TextField('name', 'name'),",
-            "(new TextColumn('id', '#'))->setWidth(50)"
+            "return [];\n",
+            "return [ (new TextColumn('id', '#'))->setWidth(50), ];"
         ];
 
         $replace = [
@@ -64,8 +63,8 @@ class ZAdminCreateController extends Command
             'protected $modelClass = ' . $this->argument('modelName') . '::class' . ';',
             'use App\Http\Requests\Admin\\' . $this->argument('modelName') . 'StoreUpdateRequest;',
             'protected $request = ' . $this->argument('modelName') . 'StoreUpdateRequest::class;',
-            implode('', $fillableAddEdit),
-            $list
+            "return [\n" . implode('', $fillableAddEdit) . "\t\t];\n",
+            "return [\n" . $list . "\t\t];\n"
         ];
 
         $this->replaceInFile($search, $replace, $pathFrom, $pathTo);

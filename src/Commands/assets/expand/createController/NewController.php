@@ -18,15 +18,11 @@ class NewController extends AdminResourceController
 
     protected function addEdit($model)
     {
-        return [
-            new TextField('name', 'name'),
-        ];
+        return [];
     }
 
     protected function list(): array
     {
-        return [
-            (new TextColumn('id', '#'))->setWidth(50),
-        ];
+        return [ (new TextColumn('id', '#'))->setWidth(50), ];
     }
 }
