@@ -48,7 +48,7 @@ class ZAdminCreateController extends Command
     protected function createController()
     {
         $pathFrom = __DIR__ . '/assets/expand/createController/NewController.php';
-        $pathTo = app_path('Http/Controllers/' . $this->argument('modelName') . 'Controller.php');
+        $pathTo = app_path('Http/Controllers/Admin/' . $this->argument('modelName') . 'Controller.php');
 
         $fillable = $this->parseModel();
 
@@ -142,7 +142,7 @@ class ZAdminCreateController extends Command
     protected function createRequest()
     {
         $pathFrom = __DIR__ . '/assets/expand/createRequest/NewRequest.php';
-        $pathTo = app_path('Http/Requests/' . $this->argument('modelName') . 'Request.php');
+        $pathTo = app_path('Http/Requests/Admin/' . $this->argument('modelName') . 'Request.php');
 
         $fillable = $this->parseModel();
         $rules = [];
