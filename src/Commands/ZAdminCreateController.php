@@ -41,7 +41,7 @@ class ZAdminCreateController extends Command
         if ($this->isModelExists()) {
             $this->createController();
         } else {
-            $this->components->error("Model name did not recognized or model don't exist in your project");
+            $this->components->error("Model name did not recognized or model doesn't exist in your project");
         }
     }
 
@@ -64,7 +64,7 @@ class ZAdminCreateController extends Command
             }
         }
 
-        $searchToReaplace = [
+        $searchToReplace = [
             'resource_name' => strtolower($this->argument('modelName')),
             'NewController'=> $this->argument('modelName') . 'Controller',
             'protected $modelClass = null;' => 'protected $modelClass = ' . $this->argument('modelName') . '::class' . ';',
@@ -75,7 +75,7 @@ class ZAdminCreateController extends Command
             "return [ (new TextColumn('id', '#'))->setWidth(50), ];" => "return [\n" . $list . "        ];\n"
         ];
 
-        $this->replaceInFile($searchToReaplace, $pathFrom, $pathTo);
+        $this->replaceInFile($searchToReplace, $pathFrom, $pathTo);
         $this->createRequest();
         $this->createResourceRoute();
         $this->createAuthRoutes();
