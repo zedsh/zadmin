@@ -21,45 +21,56 @@ class ZAdminCreateController extends Command
 
     public function handle()
     {
-        $this->createController();
+        if ($this->isModelExists()) {
+            $this->createController();
+        }
+
+        $this->components->error("Model name did not recognized or model don't exist in your project");
     }
 
     protected function createController()
     {
-        if ($this->isModelExists()) {
-            $data = file_get_contents(__DIR__ . '/assets/expand/createController/NewController.php');
-            $data = str_replace([
-                'resource_name',
-                'NewController',
-                'protected $modelClass = null;',
-                'use App\Http\Requests\Admin\TagStoreUpdateRequest;',
-                'protected $request = null;'
-            ],
-                [
-                    strtolower($this->argument('modelName')),
-                    $this->argument('modelName').'Controller',
-                    'protected $modelClass = '.$this->argument('modelName').'::class'.';',
-                    'use App\Http\Requests\Admin\\'.$this->argument('modelName').'StoreUpdateRequest;',
-                    'protected $request = '.$this->argument('modelName').'StoreUpdateRequest::class;'
-                ], $data);
-            $fillable = $this->parseModel();
-            $fillableAddEdit = [];
-            foreach ($fillable as $field) {
-                $fillableAddEdit[] = "new TextField('".$field."', '".$field."'),\n";
-            }
-            $data = str_replace("new TextField('name', 'name'),",implode('',$fillableAddEdit), $data);
-            $list = "            (new TextColumn('id', '#'))->setWidth(50)";
-            foreach ($fillable as $field) {
-                if ($field === 'name') {
-                    $list = $list . "
-            (new TextColumn('name', 'name')),\n";
-                }
-            }
-            $data = str_replace("(new TextColumn('id', '#'))->setWidth(50)", $list, $data);
-            file_put_contents(app_path('Http/Controllers/Admin/'.$this->argument('modelName').'Controller.php'),$data);
-            $this->createResourceRoute();
-            $this->createRequest();
+        $pathFrom = __DIR__ . '/assets/expand/createController/NewController.php';
+        $pathTo = app_path('Http/Controllers/Admin/' . $this->argument('modelName') . 'Controller.php');
+
+        $fillable = $this->parseModel();
+
+        $fillableAddEdit = [];
+        foreach ($fillable as $field) {
+            $fillableAddEdit[] = "new TextField('" . $field . "', '" . $field . "'),\n";
         }
+
+        $list = "            (new TextColumn('id', '#'))->setWidth(50)";
+        foreach ($fillable as $field) {
+            if ($field === 'name') {
+                $list = $list . "
+            (new TextColumn('name', 'name')),\n";
+            }
+        }
+
+        $search = [
+            'resource_name',
+            'NewController',
+            'protected $modelClass = null;',
+            'use App\Http\Requests\Admin\TagStoreUpdateRequest;',
+            'protected $request = null;',
+            "new TextField('name', 'name'),",
+            "(new TextColumn('id', '#'))->setWidth(50)"
+        ];
+
+        $replace = [
+            strtolower($this->argument('modelName')),
+            $this->argument('modelName') . 'Controller',
+            'protected $modelClass = ' . $this->argument('modelName') . '::class' . ';',
+            'use App\Http\Requests\Admin\\' . $this->argument('modelName') . 'StoreUpdateRequest;',
+            'protected $request = ' . $this->argument('modelName') . 'StoreUpdateRequest::class;',
+            implode('', $fillableAddEdit),
+            $list
+        ];
+
+        $this->replaceInFile($search, $replace, $pathFrom, $pathTo);
+        $this->createResourceRoute();
+        $this->createRequest();
     }
 
 
@@ -81,9 +92,7 @@ class ZAdminCreateController extends Command
         $fillable = mb_substr($parsedModel,$startFillable, ($endFillable-$startFillable));
         $fillable = ltrim($fillable);
         $fillable = rtrim($fillable);
-        $fillable = str_replace("\n", "", $fillable);
-        $fillable = str_replace("'", "", $fillable);
-        $fillable = str_replace(" ", "", $fillable);
+        $fillable = str_replace(["\n","'"," "], ["","",""], $fillable);
         $fillable = explode(',', $fillable);
 
         return $fillable;
@@ -117,4 +126,8 @@ class ZAdminCreateController extends Command
         file_put_contents(app_path('Http/Requests/Admin/'.$this->argument('modelName').'Request.php'),$data);
     }
 
+    protected function replaceInFile($search, $replace, $pathFrom, $pathTo)
+    {
+        file_put_contents($pathTo, str_replace($search, $replace, file_get_contents($pathFrom)));
+    }
 }
