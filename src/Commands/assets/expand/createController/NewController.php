@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\News;
 use App\Http\Requests\Admin\TagStoreUpdateRequest;
 use zedsh\zadmin\Fields\TextField;
 use zedsh\zadmin\Lists\Columns\TextColumn;
