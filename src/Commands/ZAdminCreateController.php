@@ -14,7 +14,7 @@ class ZAdminCreateController extends Command
 {
     public $signature = 'admin:create {modelName}';
 
-    public $description = 'Command for copy AdminResourceController file into your project';
+    public $description = "Command for create Controller,Request,route for model and import auth routes in your application";
 
     public static $authRoutesDefinition = "\zedsh\zadmin\Helpers\AdminAuth::routes(\n
     [\n
