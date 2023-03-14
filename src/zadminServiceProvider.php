@@ -4,9 +4,7 @@ namespace zedsh\zadmin;
 
 use Illuminate\Support\ServiceProvider;
 use zedsh\zadmin\Commands\ZAdminCreateController;
-use zedsh\zadmin\Commands\ZAdminInstallAdminResourceController;
-use zedsh\zadmin\Commands\ZAdminInstallAssets;
-use zedsh\zadmin\Commands\ZAdminInstallProjectTemplate;
+use zedsh\zadmin\Commands\ZAdminInstall;
 
 class zadminServiceProvider extends ServiceProvider
 {
@@ -22,9 +20,7 @@ class zadminServiceProvider extends ServiceProvider
             ], 'public');
 
             $this->commands([
-                ZAdminInstallProjectTemplate::class,
-                ZAdminInstallAdminResourceController::class,
-                ZAdminInstallAssets::class,
+                ZAdminInstall::class,
                 ZAdminCreateController::class,
             ]);
         }
@@ -40,9 +36,7 @@ class zadminServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            ZAdminInstallProjectTemplate::class,
-            ZAdminInstallAdminResourceController::class,
-            ZAdminInstallAssets::class,
+            ZAdminInstall::class,
             ZAdminCreateController::class,
         ];
     }
