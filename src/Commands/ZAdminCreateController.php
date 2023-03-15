@@ -99,7 +99,6 @@ class ZAdminCreateController extends Command
         $modelName = 'App\Models\\' . $this->argument('modelName');
         $model = new $modelName();
 
-        $properties = array();
         $reflection = new ReflectionClass($model);
         $properties = $reflection->getProperties();
         foreach ($properties as $property)
@@ -119,7 +118,6 @@ class ZAdminCreateController extends Command
     protected function createResourceRoute()
     {
         $routesFilePath = app_path() . '/../routes/web.php';
-        $routesFile = file_get_contents($routesFilePath);
         $searchToReplace = [
             'new-admin-route' => $this->argument('modelName'),
             'NewAdminRouteController::class' => '\App\Http\Controllers\Admin\\' . $this->argument('modelName') . "Controller::class"
@@ -127,16 +125,13 @@ class ZAdminCreateController extends Command
         $this->replaceInFile($searchToReplace, $routesFilePath, $routesFilePath, self::$newAdminRoute, FILE_APPEND);
     }
 
-    protected function createAuthRoutes(): int
+    protected function createAuthRoutes(): void
     {
         $routesFile = file_get_contents(app_path() . '/../routes/web.php');
 
         if (!(Str::contains($routesFile, 'AdminAuth::routes'))) {
             file_put_contents(app_path() . "/../routes/web.php", self::$authRoutesDefinition, FILE_APPEND);
-
-            return 1;
         }
-        return 0;
     }
 
     protected function createRequest()
