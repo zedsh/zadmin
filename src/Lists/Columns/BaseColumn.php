@@ -21,6 +21,12 @@ abstract class BaseColumn
         return $this->title;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+
     public function setWidth($value)
     {
         $this->width = $value;
