@@ -9,6 +9,7 @@ abstract class BaseColumn
     protected $title;
     protected $model;
     protected $width = 0;
+    protected $sortCall = null;
 
     public function __construct($name, $title)
     {
@@ -50,5 +51,15 @@ abstract class BaseColumn
     public function render()
     {
         return $this->model->{$this->name};
+    }
+
+    public function setSort($sortCall)
+    {
+        $this->sortCall = $sortCall;
+    }
+
+    public function getSortCall()
+    {
+       return $this->sortCall; 
     }
 }
