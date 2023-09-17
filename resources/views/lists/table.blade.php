@@ -21,7 +21,14 @@
     <thead>
     <tr>
         @foreach($table->getColumns() as $column)
-            <th scope="col" @if($column->getWidth()) width="{{$column->getWidth()}}" @endif>{{$column->getTitle()}}</th>
+            <th scope="col" @if($column->getWidth()) width="{{$column->getWidth()}}" @endif>{{$column->getTitle()}}
+                @if($column->getSort())
+                    <a href="{{request()->fullUrlWithQuery(['sort' => $column->getName(), 'direction' => 'asc'])}}"><i class="fas fa-angle-up"
+                          @if(request()->input('sort') == $column->getName() && request()->input('direction') == 'asc') style="color:red;" @endif></i></a>
+                    <a href="{{request()->fullUrlWithQuery(['sort' => $column->getName() , 'direction' => 'desc'])}}"><i class="fas fa-angle-down"
+                          @if(request()->input('sort') == $column->getName() && request()->input('direction') == 'desc') style="color:red;" @endif></i></a>
+                @endif
+            </th>
         @endforeach
     </tr>
     </thead>

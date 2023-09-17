@@ -104,13 +104,30 @@ class BaseAdminResourceController extends Controller
          * @var TableList $list
          */
 
+        $query = $this->getListQuery();
+
+        if(!empty(request()->input('sort')) && in_array(request()->input('direction'),['asc','desc'])) {
+            foreach ($otherColumns as $otherColumn) {
+                if($otherColumn->getSort() && $otherColumn->getName() === request()->input('sort')) {
+                    $call = $otherColumn->getSortCall();
+                    if(empty($call)) {
+                        $call = function ($query, $direction) use ($otherColumn) {
+                            $query->orderBy($otherColumn->getName(), $direction);
+                        };
+                    }
+                    $call($query, request()->input('direction'));
+                    break;
+                }
+            }
+        }
+
         $list
             ->setTitle($this->indexTitle)
             ->setColumns([$actionColumn, ...$otherColumns])
             ->enableAdd()
             ->setFilters($filters)
             ->setAddPath(route($this->resourceName . '.create'))
-            ->setQuery($this->getListQuery())
+            ->setQuery($query)
             ->enablePaginate()
             ->setItemsOnPage($this->itemsOnPage);
 

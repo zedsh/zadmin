@@ -10,6 +10,7 @@ abstract class BaseColumn
     protected $model;
     protected $width = 0;
     protected $sortCall = null;
+    protected $sort = false;
 
     public function __construct($name, $title)
     {
@@ -53,13 +54,25 @@ abstract class BaseColumn
         return $this->model->{$this->name};
     }
 
-    public function setSort($sortCall)
+    public function setSortCall($sortCall)
     {
         $this->sortCall = $sortCall;
+        return $this;
     }
 
     public function getSortCall()
     {
-       return $this->sortCall; 
+       return $this->sortCall;
+    }
+
+    public function setSort($sort = true)
+    {
+        $this->sort = $sort;
+        return $this;
+    }
+
+    public function getSort()
+    {
+        return $this->sort;
     }
 }
